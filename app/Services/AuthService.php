@@ -28,15 +28,28 @@ class AuthService
             'office_phone'      => $data['office_phone'] ?? $data['phone'] ?? null,
             'trial_ends_at'     => $data['trial_ends_at'] ?? null,
         ]);
+        $avatarPath = null;
+        if (isset($data['avatar']) && $data['avatar'] instanceof \Illuminate\Http\UploadedFile) {
+            $avatarPath = $data['avatar']->store('users/avatars', 'public');
+        }
+
+        $cardImagePath = null;
+        if (isset($data['syndicate_card_image']) && $data['syndicate_card_image'] instanceof \Illuminate\Http\UploadedFile) {
+            $cardImagePath = $data['syndicate_card_image']->store('users/syndicate_cards', 'public');
+        }
+
         $user = User::create([
-            'name'        => $data['name'],
-            'email'       => $data['email'],
-            'phone'       => $data['phone'],
-            'password'    => bcrypt($data['password']),
-            'role'        => 'lawyer',
-            'client_code' => null,
-            'office_id'   => $office->id,
+            'name'                 => $data['name'],
+            'email'                => $data['email'],
+            'phone'                => $data['phone'],
+            'password'             => bcrypt($data['password']),
+            'role'                 => 'lawyer',
+            'client_code'          => null,
+            'office_id'            => $office->id,
+            'avatar'               => $avatarPath,
+            'syndicate_card_image' => $cardImagePath,
         ]);
+
         $user->refresh();
         if ($user) {
             $code = random_int(100000, 999999);
@@ -242,9 +255,39 @@ class AuthService
             'phone' => $data['phone'] ?? null,
         ], fn ($val) => ! is_null($val));
 
+        if (isset($data['avatar']) && $data['avatar'] instanceof \Illuminate\Http\UploadedFile) {
+            if ($user->avatar && \Illuminate\Support\Facades\Storage::disk('public')->exists($user->avatar)) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($user->avatar);
+            }
+            $userData['avatar'] = $data['avatar']->store('users/avatars', 'public');
+        }
+
+        if (isset($data['syndicate_card_image']) && $data['syndicate_card_image'] instanceof \Illuminate\Http\UploadedFile) {
+            if ($user->syndicate_card_image && \Illuminate\Support\Facades\Storage::disk('public')->exists($user->syndicate_card_image)) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($user->syndicate_card_image);
+            }
+            $userData['syndicate_card_image'] = $data['syndicate_card_image']->store('users/syndicate_cards', 'public');
+        }
+
+        if (isset($data['image']) && $data['image'] instanceof \Illuminate\Http\UploadedFile && ! empty($data['type'])) {
+            $type = $data['type'];
+            if ($type === 'avatar') {
+                if ($user->avatar && \Illuminate\Support\Facades\Storage::disk('public')->exists($user->avatar)) {
+                    \Illuminate\Support\Facades\Storage::disk('public')->delete($user->avatar);
+                }
+                $userData['avatar'] = $data['image']->store('users/avatars', 'public');
+            } elseif ($type === 'syndicate_card' || $type === 'syndicate_card_image') {
+                if ($user->syndicate_card_image && \Illuminate\Support\Facades\Storage::disk('public')->exists($user->syndicate_card_image)) {
+                    \Illuminate\Support\Facades\Storage::disk('public')->delete($user->syndicate_card_image);
+                }
+                $userData['syndicate_card_image'] = $data['image']->store('users/syndicate_cards', 'public');
+            }
+        }
+
         if (! empty($userData)) {
             $user->update($userData);
         }
+
 
         if ($user->office) {
             $officeData = array_filter([

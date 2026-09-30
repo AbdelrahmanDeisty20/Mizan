@@ -34,7 +34,12 @@ class UpdateProfileRequest extends FormRequest
             'office_address'    => ['sometimes', 'string', 'max:500'],
             'syndicate_card_id' => ['sometimes', 'string', 'max:50'],
             'office_phone'      => ['sometimes', 'string', 'max:20'],
+            'avatar'               => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:5120'],
+            'syndicate_card_image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:5120'],
+            'image'                => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:5120'],
+            'type'                 => ['nullable', 'string', 'in:avatar,syndicate_card,syndicate_card_image'],
         ];
+
     }
 
     /**

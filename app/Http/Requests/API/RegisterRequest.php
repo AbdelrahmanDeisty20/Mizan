@@ -34,7 +34,10 @@ class RegisterRequest extends FormRequest
             'phone'             => ['required', 'string', 'max:20','unique:users,phone'],
             'syndicate_card_id' => ['required', 'string', 'max:50'],
             'office_phone'      => ['required', 'string', 'max:20'],
+            'avatar'               => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:5120'],
+            'syndicate_card_image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:5120'],
         ];
+
     }
 
     /**

@@ -20,7 +20,14 @@ class User extends Authenticatable
         'password',
         'role',
         'phone',
+        'avatar',
+        'syndicate_card_image',
         'email_verified_at',
+    ];
+
+    protected $appends = [
+        'avatar_url',
+        'syndicate_card_image_url',
     ];
 
     protected $hidden = [
@@ -36,6 +43,32 @@ class User extends Authenticatable
         ];
     }
 
+    public function getAvatarUrlAttribute(): ?string
+    {
+        if (! $this->avatar) {
+            return null;
+        }
+
+        if (str_starts_with($this->avatar, 'http://') || str_starts_with($this->avatar, 'https://')) {
+            return $this->avatar;
+        }
+
+        return asset('storage/' . $this->avatar);
+    }
+
+    public function getSyndicateCardImageUrlAttribute(): ?string
+    {
+        if (! $this->syndicate_card_image) {
+            return null;
+        }
+
+        if (str_starts_with($this->syndicate_card_image, 'http://') || str_starts_with($this->syndicate_card_image, 'https://')) {
+            return $this->syndicate_card_image;
+        }
+
+        return asset('storage/' . $this->syndicate_card_image);
+    }
+
     public function office(): BelongsTo
     {
         return $this->belongsTo(Office::class);
@@ -46,3 +79,4 @@ class User extends Authenticatable
         return $this->hasMany(Hearing::class, 'assigned_lawyer_id');
     }
 }
+
