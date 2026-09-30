@@ -32,4 +32,7 @@ return [
     'legal_case_created_successfully' => 'تم إضافة القضية بنجاح',
     'legal_case_updated_successfully' => 'تم تحديث بيانات القضية بنجاح',
     'legal_case_deleted_successfully' => 'تم حذف القضية بنجاح',
+    'profile_retrieved_successfully'  => 'تم جلب بيانات الملف الشخصي بنجاح',
+    'profile_updated_successfully'    => 'تم تحديث بيانات الملف الشخصي بنجاح',
 ];
+

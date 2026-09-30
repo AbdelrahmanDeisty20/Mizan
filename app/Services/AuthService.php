@@ -200,4 +200,72 @@ class AuthService
             'message' => __('messages.otp_sent_successfully'),
         ], 200);
     }
+
+    /**
+     * Get authenticated user profile.
+     */
+    public function profile()
+    {
+        $user = auth()->user();
+
+        if (! $user) {
+            return response()->json([
+                'status'  => false,
+                'message' => __('messages.user_not_found'),
+            ], 404);
+        }
+
+        return response()->json([
+            'status'  => true,
+            'message' => __('messages.profile_retrieved_successfully'),
+            'data'    => new UserResource($user->load('office.degree', 'office.governorate')),
+        ], 200);
+    }
+
+    /**
+     * Update authenticated user profile.
+     */
+    public function updateProfile(array $data)
+    {
+        $user = auth()->user();
+
+        if (! $user) {
+            return response()->json([
+                'status'  => false,
+                'message' => __('messages.user_not_found'),
+            ], 404);
+        }
+
+        $userData = array_filter([
+            'name'  => $data['name'] ?? null,
+            'email' => $data['email'] ?? null,
+            'phone' => $data['phone'] ?? null,
+        ], fn ($val) => ! is_null($val));
+
+        if (! empty($userData)) {
+            $user->update($userData);
+        }
+
+        if ($user->office) {
+            $officeData = array_filter([
+                'office_name'       => $data['office_name'] ?? null,
+                'syndicate_card_id' => $data['syndicate_card_id'] ?? null,
+                'degree_id'         => $data['degree_id'] ?? null,
+                'governorate_id'    => $data['governorate_id'] ?? null,
+                'office_address'    => $data['office_address'] ?? null,
+                'office_phone'      => $data['office_phone'] ?? null,
+            ], fn ($val) => ! is_null($val));
+
+            if (! empty($officeData)) {
+                $user->office->update($officeData);
+            }
+        }
+
+        return response()->json([
+            'status'  => true,
+            'message' => __('messages.profile_updated_successfully'),
+            'data'    => new UserResource($user->fresh()->load('office.degree', 'office.governorate')),
+        ], 200);
+    }
 }
+

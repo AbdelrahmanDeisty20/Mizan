@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\API\LoginRequest;
 use App\Http\Requests\API\RegisterRequest;
 use App\Http\Requests\API\ResendOtpRequest;
+use App\Http\Requests\API\UpdateProfileRequest;
 use App\Http\Requests\API\VerifyOtpRequest;
 use App\Services\AuthService;
 use Illuminate\Http\Request;
@@ -38,4 +39,15 @@ class AuthController extends Controller
     {
         return $this->authService->resendOtp($request->validated());
     }
+
+    public function profile()
+    {
+        return $this->authService->profile();
+    }
+
+    public function updateProfile(UpdateProfileRequest $request)
+    {
+        return $this->authService->updateProfile($request->validated());
+    }
 }
+

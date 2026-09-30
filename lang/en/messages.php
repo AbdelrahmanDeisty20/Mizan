@@ -32,4 +32,7 @@ return [
     'legal_case_created_successfully' => 'Legal case added successfully',
     'legal_case_updated_successfully' => 'Legal case updated successfully',
     'legal_case_deleted_successfully' => 'Legal case deleted successfully',
+    'profile_retrieved_successfully'  => 'Profile retrieved successfully',
+    'profile_updated_successfully'    => 'Profile updated successfully',
 ];
+
