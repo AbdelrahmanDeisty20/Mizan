@@ -56,7 +56,12 @@ return [
         'client_id'             => 'client',
         'client_role'           => 'client role in case',
         'court_id'              => 'court',
+        'avatar'               => 'personal image',
+        'syndicate_card_image' => 'syndicate card image',
+        'image'                => 'image',
+        'type'                 => 'image type',
     ],
+
 
     'custom' => [
         'login' => [

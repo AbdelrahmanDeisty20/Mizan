@@ -59,7 +59,12 @@ class UpdateProfileRequest extends FormRequest
             'phone'             => __('validation.attributes.phone'),
             'syndicate_card_id' => __('validation.attributes.syndicate_card_id'),
             'office_phone'      => __('validation.attributes.office_phone'),
+            'avatar'               => __('validation.attributes.avatar'),
+            'syndicate_card_image' => __('validation.attributes.syndicate_card_image'),
+            'image'                => __('validation.attributes.image'),
+            'type'                 => __('validation.attributes.type'),
         ];
+
     }
 
     /**

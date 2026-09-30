@@ -35,7 +35,7 @@ class RegisterRequest extends FormRequest
             'syndicate_card_id' => ['required', 'string', 'max:50'],
             'office_phone'      => ['required', 'string', 'max:20'],
             'avatar'               => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:5120'],
-            'syndicate_card_image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:5120'],
+            'syndicate_card_image' => ['required', 'image', 'mimes:jpeg,png,jpg,webp', 'max:5120'],
         ];
 
     }
@@ -60,7 +60,10 @@ class RegisterRequest extends FormRequest
             'syndicate_card_id'     => __('validation.attributes.syndicate_card_id'),
             'office_phone'          => __('validation.attributes.office_phone'),
             'role'                  => __('validation.attributes.role'),
+            'avatar'               => __('validation.attributes.avatar'),
+            'syndicate_card_image' => __('validation.attributes.syndicate_card_image'),
         ];
+
     }
 
     /**

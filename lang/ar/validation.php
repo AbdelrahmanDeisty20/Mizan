@@ -56,7 +56,12 @@ return [
         'client_id'             => 'الموكل',
         'client_role'           => 'صفة الموكل في الدعوى',
         'court_id'              => 'المحكمة',
+        'avatar'               => 'الصورة الشخصية',
+        'syndicate_card_image' => 'صورة كارنيه المحاماة',
+        'image'                => 'الصورة',
+        'type'                 => 'نوع الصورة',
     ],
+
 
     'custom' => [
         'login' => [
