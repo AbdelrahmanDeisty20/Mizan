@@ -7,6 +7,7 @@ use App\Http\Controllers\API\ClientController;
 use App\Http\Controllers\API\CourtController;
 use App\Http\Controllers\API\DegreeController;
 use App\Http\Controllers\API\GovernorateController;
+use App\Http\Controllers\API\HearingController;
 use App\Http\Controllers\API\LegalCaseController;
 use App\Http\Middleware\SetLang;
 use Illuminate\Support\Facades\Route;
@@ -43,8 +44,14 @@ Route::middleware([SetLang::class])->group(function () {
         Route::get('profile', [AuthController::class, 'profile']);
         Route::post('profile/update', [AuthController::class, 'updateProfile']);
         Route::post('clients/{client}', [ClientController::class, 'update']);
+        Route::post('governorates/{governorate}', [GovernorateController::class, 'update']);
+        Route::post('courts/{court}', [CourtController::class, 'update']);
+        Route::post('hearings/{hearing}', [HearingController::class, 'update']);
         Route::apiResource('clients', ClientController::class);
         Route::apiResource('legal-cases', LegalCaseController::class);
+        Route::apiResource('hearings', HearingController::class);
+        Route::apiResource('governorates', GovernorateController::class)->except(['index']);
+        Route::apiResource('courts', CourtController::class)->except(['index']);
     });
 });
 

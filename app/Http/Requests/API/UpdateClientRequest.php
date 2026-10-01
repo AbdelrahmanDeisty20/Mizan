@@ -27,7 +27,7 @@ class UpdateClientRequest extends FormRequest
         return [
             'name'                  => ['nullable', 'string', 'max:255'],
             'phone'                 => ['nullable', 'string', 'max:20', 'unique:clients,phone,' . $clientId],
-            'password'              => ['nullable', 'string', 'min:6', 'confirmed'],
+            'password'              => ['nullable', 'string', 'min:6'],
             'national_id'           => ['nullable', 'string', 'max:50'],
             'whatsapp'              => ['nullable', 'string', 'max:20'],
             'governorate_id'        => ['nullable', 'integer', 'exists:governorates,id'],

@@ -34,5 +34,14 @@ return [
     'legal_case_deleted_successfully' => 'تم حذف القضية بنجاح',
     'profile_retrieved_successfully'  => 'تم جلب بيانات الملف الشخصي بنجاح',
     'profile_updated_successfully'    => 'تم تحديث بيانات الملف الشخصي بنجاح',
+    'governorate_created_successfully' => 'تم إضافة المحافظة بنجاح',
+    'governorate_updated_successfully' => 'تم تحديث بيانات المحافظة بنجاح',
+    'governorate_deleted_successfully' => 'تم حذف المحافظة بنجاح',
+    'court_created_successfully'       => 'تم إضافة المحكمة بنجاح',
+    'court_updated_successfully'       => 'تم تحديث بيانات المحكمة بنجاح',
+    'court_deleted_successfully'       => 'تم حذف المحكمة بنجاح',
+    'hearing_created_successfully'     => 'تم إضافة الجلسة بنجاح',
+    'hearing_updated_successfully'     => 'تم تحديث بيانات الجلسة بنجاح',
+    'hearing_deleted_successfully'     => 'تم حذف الجلسة بنجاح',
 ];
 

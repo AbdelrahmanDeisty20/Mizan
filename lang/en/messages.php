@@ -34,5 +34,14 @@ return [
     'legal_case_deleted_successfully' => 'Legal case deleted successfully',
     'profile_retrieved_successfully'  => 'Profile retrieved successfully',
     'profile_updated_successfully'    => 'Profile updated successfully',
+    'governorate_created_successfully' => 'Governorate added successfully',
+    'governorate_updated_successfully' => 'Governorate updated successfully',
+    'governorate_deleted_successfully' => 'Governorate deleted successfully',
+    'court_created_successfully'       => 'Court added successfully',
+    'court_updated_successfully'       => 'Court updated successfully',
+    'court_deleted_successfully'       => 'Court deleted successfully',
+    'hearing_created_successfully'     => 'Hearing added successfully',
+    'hearing_updated_successfully'     => 'Hearing updated successfully',
+    'hearing_deleted_successfully'     => 'Hearing deleted successfully',
 ];
 

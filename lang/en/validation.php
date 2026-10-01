@@ -60,12 +60,31 @@ return [
         'syndicate_card_image' => 'syndicate card image',
         'image'                => 'image',
         'type'                 => 'image type',
+        'hearing_date'         => 'hearing date',
+        'hearing_type'         => 'hearing type',
+        'court_room'           => 'court room',
+        'roll_number'          => 'roll number',
+        'decision'             => 'decision',
+        'requirements'         => 'requirements',
+        'assigned_lawyer_id'   => 'assigned lawyer',
+        'legal_case_id'        => 'legal case',
     ],
 
 
     'custom' => [
         'login' => [
             'required_without_all' => 'Either email, phone number, or syndicate card ID is required to login.',
+        ],
+        'hearing_date' => [
+            'required' => 'The hearing date field is required.',
+            'date'     => 'The hearing date must be a valid date.',
+        ],
+        'hearing_type' => [
+            'required' => 'The hearing type field is required.',
+        ],
+        'legal_case_id' => [
+            'required' => 'The legal case field is required.',
+            'exists'   => 'The selected legal case does not exist.',
         ],
         'degree_id' => [
             'exists' => 'The selected degree is invalid.',
