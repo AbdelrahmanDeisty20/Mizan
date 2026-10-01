@@ -88,6 +88,8 @@ return [
             'required_without' => 'يجب إدخال رقم الكارنيه النقابي أو رقم الهاتف.',
         ],
         'phone' => [
+            'required'         => 'رقم الهاتف مطلوب.',
+            'not_found'        => 'رقم الهاتف غير صحيح.',
             'required_without' => 'يجب إدخال رقم الهاتف أو رقم الكارنيه النقابي.',
             'unique'           => 'رقم الهاتف مسجل بالفعل.',
         ],
@@ -135,9 +137,5 @@ return [
             'in'       => 'حالة القضية يجب أن تكون: active, archived, closed, won, lost.',
             'required' => 'حقل حالة القضية مطلوب.',
         ],
-        'phone.not_found' => 'رقم الهاتف غير صحيح.',
-        'phone.required' => 'رقم الهاتف مطلوب.',
-        'access_code.required' => 'كود الوصول مطلوب.',
-        'password.required' => 'كلمة المرور مطلوبة.',
     ],
 ];

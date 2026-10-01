@@ -88,6 +88,8 @@ return [
             'required_without' => 'Either syndicate card ID or phone number is required.',
         ],
         'phone' => [
+            'required'         => 'The phone number field is required.',
+            'not_found'        => 'The phone number is not found.',
             'required_without' => 'Either phone number or syndicate card ID is required.',
             'unique'           => 'The phone number has already been taken.',
         ],
@@ -135,9 +137,5 @@ return [
             'in'       => 'Case status must be one of: active, archived, closed, won, lost.',
             'required' => 'The case status field is required.',
         ],
-        'phone.not_found' => 'The phone number is not found.',
-        'phone.required' => 'The phone number field is required.',
-        'access_code.required' => 'The access code field is required.',
-        'password.required' => 'The password field is required.',
     ],
 ];
