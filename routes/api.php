@@ -41,7 +41,7 @@ Route::middleware([SetLang::class])->group(function () {
     // Protected Routes
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('profile', [AuthController::class, 'profile']);
-        Route::put('profile', [AuthController::class, 'updateProfile']);
+        Route::post('profile/update', [AuthController::class, 'updateProfile']);
         Route::apiResource('clients', ClientController::class);
         Route::apiResource('legal-cases', LegalCaseController::class);
     });
