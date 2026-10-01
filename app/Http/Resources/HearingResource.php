@@ -16,7 +16,6 @@ class HearingResource extends JsonResource
     {
         return [
             'id'                 => $this->id,
-            'legal_case_id'      => $this->legal_case_id,
             'legal_case'         => new LegalCaseResource($this->whenLoaded('legalCase')),
             'hearing_date'       => $this->hearing_date?->toDateTimeString(),
             'hearing_type'       => $this->hearing_type,
