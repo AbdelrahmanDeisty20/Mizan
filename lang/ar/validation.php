@@ -137,5 +137,8 @@ return [
             'in'       => 'حالة القضية يجب أن تكون: active, archived, closed, won, lost.',
             'required' => 'حقل حالة القضية مطلوب.',
         ],
+        'trial_ends_at' => [
+            'date' => 'يجب أن يكون تاريخ نهاية المهلة صحيحًا.',
+        ],
     ],
 ];

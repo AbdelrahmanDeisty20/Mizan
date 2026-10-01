@@ -35,6 +35,7 @@ class UpdateProfileRequest extends FormRequest
             'office_address'    => ['nullable', 'string', 'max:500'],
             'syndicate_card_id' => ['nullable', 'string', 'max:50'],
             'office_phone'      => ['nullable', 'string', 'max:20'],
+            'trial_ends_at'     => ['nullable', 'date'],
             'avatar'               => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:5120'],
             'syndicate_card_image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:5120'],
             'image'                => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:5120'],
@@ -62,6 +63,7 @@ class UpdateProfileRequest extends FormRequest
             'syndicate_card_id' => __('validation.attributes.syndicate_card_id'),
             'office_phone'      => __('validation.attributes.office_phone'),
             'avatar'               => __('validation.attributes.avatar'),
+            'trial_ends_at'     => __('validation.attributes.trial_ends_at'),
             'syndicate_card_image' => __('validation.attributes.syndicate_card_image'),
             'image'                => __('validation.attributes.image'),
             'type'                 => __('validation.attributes.type'),
@@ -81,6 +83,7 @@ class UpdateProfileRequest extends FormRequest
             'governorate_id.exists' => __('validation.custom.governorate_id.exists'),
             'email.unique'          => __('validation.custom.email.unique'),
             'phone.unique'          => __('validation.custom.phone.unique'),
+            'trial_ends_at.date'    => __('validation.custom.trial_ends_at.date'),
         ];
     }
 }

@@ -137,5 +137,8 @@ return [
             'in'       => 'Case status must be one of: active, archived, closed, won, lost.',
             'required' => 'The case status field is required.',
         ],
+        'trial_ends_at' => [
+            'date' => 'The trial end date must be a valid date.',
+        ],
     ],
 ];
