@@ -28,7 +28,7 @@ class StoreLegalCaseRequest extends FormRequest
             'case_number'     => ['required', 'string', 'max:100'],
             'year'            => ['required', 'integer', 'min:1900', 'max:2100'],
             'court_id'        => ['required', 'integer', 'exists:courts,id'],
-            'degree'          => ['required', 'string', 'in:primary,appeal,cassation'],
+            'degree'          => ['required', 'string'],
             'case_type'       => ['required', 'string'],
             'status'          => ['required', 'string', 'in:active,archived,closed,won,lost'],
             'opponent_name'   => ['required', 'string', 'max:255'],
