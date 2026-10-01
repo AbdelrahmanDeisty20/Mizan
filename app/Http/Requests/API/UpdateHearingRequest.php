@@ -31,7 +31,7 @@ class UpdateHearingRequest extends FormRequest
             'roll_number'        => ['nullable', 'string', 'max:100'],
             'decision'           => ['nullable', 'string'],
             'requirements'       => ['nullable', 'string'],
-            'status'             => ['nullable', 'string', 'in:upcoming,postponed,attended,completed,reserved_for_judgment,adjourned,مقبلة,مؤجلة,تم الحضور,منتهية,متحجزة للحكم,مؤجلة للاطلاع'],
+            'status'             => ['nullable', 'string'],
         ];
     }
 
