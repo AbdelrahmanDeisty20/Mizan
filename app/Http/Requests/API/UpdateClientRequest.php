@@ -25,8 +25,8 @@ class UpdateClientRequest extends FormRequest
         $clientId = $this->route('client')?->id ?? $this->route('client');
 
         return [
-            'name'           => ['sometimes', 'string', 'max:255'],
-            'phone'          => ['sometimes', 'string', 'max:20', 'unique:clients,phone,' . $clientId],
+            'name'           => ['nullable', 'string', 'max:255'],
+            'phone'          => ['nullable', 'string', 'max:20', 'unique:clients,phone,' . $clientId],
             'national_id'    => ['nullable', 'string', 'max:50'],
             'whatsapp'       => ['nullable', 'string', 'max:20'],
             'governorate_id' => ['nullable', 'integer', 'exists:governorates,id'],
