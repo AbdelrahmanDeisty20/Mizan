@@ -22,6 +22,7 @@ class ClientResource extends JsonResource
             'whatsapp'    => $this->whatsapp,
             'governorate' => new GovernorateResource($this->whenLoaded('governorate')),
             'address'     => $this->address,
+            'image'       => $this->image_url,
             'access_code' => $this->access_code,
             'notes'       => $this->notes,
             'created_at'  => $this->created_at?->toDateTimeString(),

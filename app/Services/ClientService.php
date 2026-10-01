@@ -82,6 +82,11 @@ class ClientService
             $accessCode = 'CLI-' . str_pad((string) mt_rand(1, 999999), 6, '0', STR_PAD_LEFT);
         } while (Client::where('access_code', $accessCode)->exists());
 
+        $imagePath = null;
+        if (isset($data['image']) && $data['image'] instanceof \Illuminate\Http\UploadedFile) {
+            $imagePath = $data['image']->store('clients', 'public');
+        }
+
         $client = Client::create([
             'office_id'      => $user->office_id,
             'name'           => $data['name'],
@@ -91,6 +96,7 @@ class ClientService
             'whatsapp'       => $data['whatsapp'] ?? null,
             'governorate_id' => $data['governorate_id'] ?? null,
             'address'        => $data['address'] ?? null,
+            'image'          => $imagePath,
             'access_code'    => $accessCode,
             'notes'          => $data['notes'] ?? null,
         ]);
@@ -115,6 +121,13 @@ class ClientService
                 'status'  => false,
                 'message' => __('messages.unauthorized_role'),
             ], 403);
+        }
+
+        if (isset($data['image']) && $data['image'] instanceof \Illuminate\Http\UploadedFile) {
+            if ($client->image && \Illuminate\Support\Facades\Storage::disk('public')->exists($client->image)) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($client->image);
+            }
+            $data['image'] = $data['image']->store('clients', 'public');
         }
 
         $client->update($data);

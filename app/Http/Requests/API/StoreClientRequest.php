@@ -30,6 +30,7 @@ class StoreClientRequest extends FormRequest
             'whatsapp'       => ['nullable', 'string', 'max:20'],
             'governorate_id' => ['nullable', 'integer', 'exists:governorates,id'],
             'address'        => ['nullable', 'string'],
+            'image'          => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:5120'],
             'notes'          => ['nullable', 'string'],
         ];
     }
@@ -49,6 +50,7 @@ class StoreClientRequest extends FormRequest
             'whatsapp'       => __('validation.attributes.whatsapp'),
             'governorate_id' => __('validation.attributes.governorate_id'),
             'address'        => __('validation.attributes.address'),
+            'image'          => __('validation.attributes.image'),
             'notes'          => __('validation.attributes.notes'),
         ];
     }

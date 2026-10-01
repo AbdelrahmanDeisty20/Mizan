@@ -20,9 +20,14 @@ class Client extends Model
         'whatsapp',
         'governorate_id',
         'address',
+        'image',
         'access_code',
         'password',
         'notes',
+    ];
+
+    protected $appends = [
+        'image_url',
     ];
 
     protected $hidden = [
@@ -34,6 +39,19 @@ class Client extends Model
         return [
             'password' => 'hashed',
         ];
+    }
+
+    public function getImageUrlAttribute(): ?string
+    {
+        if (! $this->image) {
+            return null;
+        }
+
+        if (str_starts_with($this->image, 'http://') || str_starts_with($this->image, 'https://')) {
+            return $this->image;
+        }
+
+        return asset('storage/' . $this->image);
     }
 
     public function office(): BelongsTo
