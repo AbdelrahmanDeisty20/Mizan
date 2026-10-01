@@ -25,14 +25,15 @@ class UpdateClientRequest extends FormRequest
         $clientId = $this->route('client')?->id ?? $this->route('client');
 
         return [
-            'name'           => ['nullable', 'string', 'max:255'],
-            'phone'          => ['nullable', 'string', 'max:20', 'unique:clients,phone,' . $clientId],
-            'national_id'    => ['nullable', 'string', 'max:50'],
-            'whatsapp'       => ['nullable', 'string', 'max:20'],
-            'governorate_id' => ['nullable', 'integer', 'exists:governorates,id'],
-            'address'        => ['nullable', 'string'],
-            'image'          => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:5120'],
-            'notes'          => ['nullable', 'string'],
+            'name'                  => ['nullable', 'string', 'max:255'],
+            'phone'                 => ['nullable', 'string', 'max:20', 'unique:clients,phone,' . $clientId],
+            'password'              => ['nullable', 'string', 'min:6', 'confirmed'],
+            'national_id'           => ['nullable', 'string', 'max:50'],
+            'whatsapp'              => ['nullable', 'string', 'max:20'],
+            'governorate_id'        => ['nullable', 'integer', 'exists:governorates,id'],
+            'address'               => ['nullable', 'string'],
+            'image'                 => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:5120'],
+            'notes'                 => ['nullable', 'string'],
         ];
     }
 
@@ -44,14 +45,16 @@ class UpdateClientRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'name'           => __('validation.attributes.name'),
-            'phone'          => __('validation.attributes.phone'),
-            'national_id'    => __('validation.attributes.national_id'),
-            'whatsapp'       => __('validation.attributes.whatsapp'),
-            'governorate_id' => __('validation.attributes.governorate_id'),
-            'address'        => __('validation.attributes.address'),
-            'image'          => __('validation.attributes.image'),
-            'notes'          => __('validation.attributes.notes'),
+            'name'                  => __('validation.attributes.name'),
+            'phone'                 => __('validation.attributes.phone'),
+            'password'              => __('validation.attributes.password'),
+            'password_confirmation' => __('validation.attributes.password_confirmation'),
+            'national_id'           => __('validation.attributes.national_id'),
+            'whatsapp'              => __('validation.attributes.whatsapp'),
+            'governorate_id'        => __('validation.attributes.governorate_id'),
+            'address'               => __('validation.attributes.address'),
+            'image'                 => __('validation.attributes.image'),
+            'notes'                 => __('validation.attributes.notes'),
         ];
     }
 
@@ -65,6 +68,7 @@ class UpdateClientRequest extends FormRequest
         return [
             'phone.unique'          => __('validation.custom.phone.unique'),
             'governorate_id.exists' => __('validation.custom.governorate_id.exists'),
+            'password.confirmed'    => __('validation.custom.password.confirmed'),
         ];
     }
 }

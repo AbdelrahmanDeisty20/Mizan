@@ -130,6 +130,13 @@ class ClientService
             $data['image'] = $data['image']->store('clients', 'public');
         }
 
+        if (array_key_exists('password', $data)) {
+            if (empty($data['password'])) {
+                unset($data['password']);
+            }
+        }
+        unset($data['password_confirmation']);
+
         $client->update($data);
 
         return response()->json([
