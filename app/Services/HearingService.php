@@ -38,7 +38,7 @@ class HearingService
         $perPage = request()->get('per_page', 10);
 
         $hearings = Hearing::where('office_id', auth()->user()->office_id)
-            ->with(['legalCase'])
+            ->with(['legalCase', 'legalCase.client'])
             ->latest('hearing_date')
             ->paginate($perPage);
 
