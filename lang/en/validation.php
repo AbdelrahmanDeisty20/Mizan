@@ -82,6 +82,9 @@ return [
         'hearing_type' => [
             'required' => 'The hearing type field is required.',
         ],
+        'status' => [
+            'in' => 'The selected status is invalid.',
+        ],
         'legal_case_id' => [
             'required' => 'The legal case field is required.',
             'exists'   => 'The selected legal case does not exist.',

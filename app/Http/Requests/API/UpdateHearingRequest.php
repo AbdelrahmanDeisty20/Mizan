@@ -31,7 +31,7 @@ class UpdateHearingRequest extends FormRequest
             'roll_number'        => ['nullable', 'string', 'max:100'],
             'decision'           => ['nullable', 'string'],
             'requirements'       => ['nullable', 'string'],
-            'status'             => ['nullable', 'string', 'max:50'],
+            'status'             => ['nullable', 'string', 'in:upcoming,postponed,attended,completed,reserved_for_judgment,adjourned,مقبلة,مؤجلة,تم الحضور,منتهية,متحجزة للحكم,مؤجلة للاطلاع'],
         ];
     }
 
@@ -66,6 +66,7 @@ class UpdateHearingRequest extends FormRequest
             'legal_case_id.exists'      => __('validation.custom.legal_case_id.exists'),
             'assigned_lawyer_id.exists' => __('validation.custom.assigned_lawyer_id.exists'),
             'hearing_date.date'         => __('validation.custom.hearing_date.date'),
+            'status.in'                 => __('validation.custom.status.in'),
         ];
     }
 }

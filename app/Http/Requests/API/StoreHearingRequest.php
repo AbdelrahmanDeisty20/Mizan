@@ -31,7 +31,7 @@ class StoreHearingRequest extends FormRequest
             'roll_number'        => ['nullable', 'string', 'max:100'],
             'decision'           => ['nullable', 'string'],
             'requirements'       => ['nullable', 'string'],
-            'status'             => ['nullable', 'string', 'max:50'],
+            'status'             => ['nullable', 'string'],
         ];
     }
 
@@ -68,6 +68,7 @@ class StoreHearingRequest extends FormRequest
             'assigned_lawyer_id.exists'   => __('validation.custom.assigned_lawyer_id.exists'),
             'hearing_date.required'       => __('validation.custom.hearing_date.required'),
             'hearing_date.date'           => __('validation.custom.hearing_date.date'),
+            'status.in'                   => __('validation.custom.status.in'),
         ];
     }
 }
