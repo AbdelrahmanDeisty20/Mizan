@@ -135,5 +135,9 @@ return [
             'in'       => 'حالة القضية يجب أن تكون: active, archived, closed, won, lost.',
             'required' => 'حقل حالة القضية مطلوب.',
         ],
+        'phone.not_found' => 'رقم الهاتف غير صحيح.',
+        'phone.required' => 'رقم الهاتف مطلوب.',
+        'access_code.required' => 'كود الوصول مطلوب.',
+        'password.required' => 'كلمة المرور مطلوبة.',
     ],
 ];

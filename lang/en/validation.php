@@ -135,5 +135,9 @@ return [
             'in'       => 'Case status must be one of: active, archived, closed, won, lost.',
             'required' => 'The case status field is required.',
         ],
+        'phone.not_found' => 'The phone number is not found.',
+        'phone.required' => 'The phone number field is required.',
+        'access_code.required' => 'The access code field is required.',
+        'password.required' => 'The password field is required.',
     ],
 ];

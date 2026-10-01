@@ -13,7 +13,7 @@ class ClientAuthService
      */
     public function login(array $data)
     {
-        $client = Client::where('access_code', $data['access_code'])->first();
+        $client = Client::where('access_code', $data['access_code'])->where('phone', $data['phone'])->first();
 
         if (! $client || ! Hash::check($data['password'], $client->password)) {
             return response()->json([
