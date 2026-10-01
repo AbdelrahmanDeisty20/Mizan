@@ -42,6 +42,7 @@ Route::middleware([SetLang::class])->group(function () {
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('profile', [AuthController::class, 'profile']);
         Route::post('profile/update', [AuthController::class, 'updateProfile']);
+        Route::post('clients/{client}', [ClientController::class, 'update']);
         Route::apiResource('clients', ClientController::class);
         Route::apiResource('legal-cases', LegalCaseController::class);
     });
