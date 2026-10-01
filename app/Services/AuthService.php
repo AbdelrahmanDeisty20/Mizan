@@ -297,6 +297,7 @@ class AuthService
                 'governorate_id'    => $data['governorate_id'] ?? null,
                 'office_address'    => $data['office_address'] ?? null,
                 'office_phone'      => $data['office_phone'] ?? null,
+                'address'           => $data['address'] ?? null,
             ], fn ($val) => ! is_null($val));
 
             if (! empty($officeData)) {
