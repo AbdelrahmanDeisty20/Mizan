@@ -18,7 +18,7 @@ class Office extends Model
         'governorate_id',
         'office_address',
         'office_phone',
-        'address',
+        'office_address',
         'phone',
         'logo_path',
         'trial_ends_at',

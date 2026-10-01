@@ -295,9 +295,8 @@ class AuthService
                 'syndicate_card_id' => $data['syndicate_card_id'] ?? null,
                 'degree_id'         => $data['degree_id'] ?? null,
                 'governorate_id'    => $data['governorate_id'] ?? null,
-                'office_address'    => $data['office_address'] ?? null,
+                'office_address'    => $data['address'] ?? null,
                 'office_phone'      => $data['office_phone'] ?? null,
-                'address'           => $data['address'] ?? null,
             ], fn ($val) => ! is_null($val));
 
             if (! empty($officeData)) {
