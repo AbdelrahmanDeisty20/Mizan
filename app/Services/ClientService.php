@@ -77,6 +77,13 @@ class ClientService
 
         $user = auth()->user();
 
+        if (! \Illuminate\Support\Facades\Hash::check($data['password'], $user->password)) {
+            return response()->json([
+                'status'  => false,
+                'message' => __('messages.lawyer_password_invalid'),
+            ], 422);
+        }
+
         // Generate unique access code for client tracking
         do {
             $accessCode = 'CLI-' . str_pad((string) mt_rand(1, 999999), 6, '0', STR_PAD_LEFT);
@@ -91,7 +98,6 @@ class ClientService
             'office_id'      => $user->office_id,
             'name'           => $data['name'],
             'phone'          => $data['phone'],
-            'password'       => $data['password'],
             'national_id'    => $data['national_id'] ?? null,
             'whatsapp'       => $data['whatsapp'] ?? null,
             'governorate_id' => $data['governorate_id'] ?? null,
@@ -123,6 +129,13 @@ class ClientService
             ], 403);
         }
 
+        if (! \Illuminate\Support\Facades\Hash::check($data['password'], auth()->user()->password)) {
+            return response()->json([
+                'status'  => false,
+                'message' => __('messages.lawyer_password_invalid'),
+            ], 422);
+        }
+
         if (isset($data['image']) && $data['image'] instanceof \Illuminate\Http\UploadedFile) {
             if ($client->image && \Illuminate\Support\Facades\Storage::disk('public')->exists($client->image)) {
                 \Illuminate\Support\Facades\Storage::disk('public')->delete($client->image);
@@ -130,12 +143,7 @@ class ClientService
             $data['image'] = $data['image']->store('clients', 'public');
         }
 
-        if (array_key_exists('password', $data)) {
-            if (empty($data['password'])) {
-                unset($data['password']);
-            }
-        }
-        unset($data['password_confirmation']);
+        unset($data['password'], $data['password_confirmation']);
 
         $client->update($data);
 

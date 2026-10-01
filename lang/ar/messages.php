@@ -43,5 +43,7 @@ return [
     'hearing_created_successfully'     => 'تم إضافة الجلسة بنجاح',
     'hearing_updated_successfully'     => 'تم تحديث بيانات الجلسة بنجاح',
     'hearing_deleted_successfully'     => 'تم حذف الجلسة بنجاح',
+    'not_found'                        => 'المورد المطلوب غير موجود',
+    'lawyer_password_invalid'          => 'كلمة المرور الخاصة بالمحامي غير صحيحة لتأكيد العملية',
 ];
 

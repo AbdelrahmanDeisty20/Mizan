@@ -43,5 +43,7 @@ return [
     'hearing_created_successfully'     => 'Hearing added successfully',
     'hearing_updated_successfully'     => 'Hearing updated successfully',
     'hearing_deleted_successfully'     => 'Hearing deleted successfully',
+    'not_found'                        => 'Resource not found',
+    'lawyer_password_invalid'          => 'Lawyer password is incorrect to confirm the operation',
 ];
 

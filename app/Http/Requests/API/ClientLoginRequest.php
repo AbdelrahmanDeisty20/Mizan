@@ -25,7 +25,6 @@ class ClientLoginRequest extends FormRequest
         return [
             'phone'       => ['required', 'string', 'exists:clients,phone'],
             'access_code' => ['required', 'string', 'max:50'],
-            'password'    => ['required', 'string'],
         ];
     }
 
@@ -39,7 +38,6 @@ class ClientLoginRequest extends FormRequest
         return [
             'phone'       => __('validation.attributes.phone'),
             'access_code' => __('validation.attributes.access_code'),
-            'password'    => __('validation.attributes.password'),
         ];
     }
 
@@ -54,7 +52,6 @@ class ClientLoginRequest extends FormRequest
             'phone.required'       => __('validation.custom.phone.required'),
             'phone.exists'         => __('validation.custom.phone.not_found'),
             'access_code.required' => __('validation.custom.access_code.required'),
-            'password.required'    => __('validation.custom.password.required'),
         ];
     }
 }

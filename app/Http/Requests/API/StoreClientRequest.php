@@ -25,7 +25,7 @@ class StoreClientRequest extends FormRequest
         return [
             'name'           => ['required', 'string', 'max:255'],
             'phone'          => ['required', 'string', 'max:20', 'unique:clients,phone'],
-            'password'       => ['required', 'string', 'min:6'],
+            'password'       => ['required', 'string'],
             'national_id'    => ['nullable', 'string', 'max:50'],
             'whatsapp'       => ['nullable', 'string', 'max:20'],
             'governorate_id' => ['nullable', 'integer', 'exists:governorates,id'],

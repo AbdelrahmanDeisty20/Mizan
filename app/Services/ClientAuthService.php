@@ -9,13 +9,13 @@ use Hash;
 class ClientAuthService
 {
     /**
-     * Authenticate a client using access_code and password.
+     * Authenticate a client using access_code and phone.
      */
     public function login(array $data)
     {
         $client = Client::where('access_code', $data['access_code'])->where('phone', $data['phone'])->first();
 
-        if (! $client || ! Hash::check($data['password'], $client->password)) {
+        if (! $client) {
             return response()->json([
                 'status'  => false,
                 'message' => __('messages.invalid_credentials'),
