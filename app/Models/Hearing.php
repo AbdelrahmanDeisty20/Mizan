@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -27,6 +29,16 @@ class Hearing extends Model
     protected $casts = [
         'hearing_date' => 'date:Y-m-d',
     ];
+
+    /**
+     * Mutator to automatically format incoming date to YYYY-MM-DD for MySQL.
+     */
+    protected function hearingDate(): Attribute
+    {
+        return Attribute::make(
+            set: fn ($value) => $value ? Carbon::parse($value)->format('Y-m-d') : null,
+        );
+    }
 
     public function office(): BelongsTo
     {
