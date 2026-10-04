@@ -14,7 +14,7 @@ class StoreFinancialReceiptRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'receipt_number' => ['required', 'string', 'max:100', 'unique:financial_receipts,receipt_number'],
+            'receipt_number' => ['nullable', 'string', 'max:100', 'unique:financial_receipts,receipt_number'],
             'client_id'      => ['required', 'integer', 'exists:clients,id'],
             'legal_case_id'  => ['required', 'integer', 'exists:legal_cases,id'],
             'user_id'        => ['nullable', 'integer', 'exists:users,id'],
@@ -42,7 +42,6 @@ class StoreFinancialReceiptRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'receipt_number.required' => __('validation.custom.receipt_number.required'),
             'receipt_number.unique'   => __('validation.custom.receipt_number.unique'),
             'client_id.required'      => __('validation.custom.client_id.required'),
             'client_id.exists'        => __('validation.custom.client_id.exists'),
