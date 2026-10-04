@@ -43,10 +43,13 @@ return [
     'hearing_type_created_successfully'=> 'تم إضافة نوع الجلسة بنجاح',
     'hearing_type_updated_successfully'=> 'تم تحديث نوع الجلسة بنجاح',
     'hearing_type_deleted_successfully'=> 'تم حذف نوع الجلسة بنجاح',
-    'hearing_created_successfully'     => 'تم إضافة الجلسة بنجاح',
-    'hearing_updated_successfully'     => 'تم تحديث بيانات الجلسة بنجاح',
-    'hearing_deleted_successfully'     => 'تم حذف الجلسة بنجاح',
-    'not_found'                        => 'المورد المطلوب غير موجود',
+    'hearing_created_successfully'            => 'تم إضافة الجلسة بنجاح',
+    'hearing_updated_successfully'            => 'تم تحديث بيانات الجلسة بنجاح',
+    'hearing_deleted_successfully'            => 'تم حذف الجلسة بنجاح',
+    'financial_receipt_created_successfully'  => 'تم إضافة سند القبض بنجاح',
+    'financial_receipt_updated_successfully'  => 'تم تحديث بيانات سند القبض بنجاح',
+    'financial_receipt_deleted_successfully'  => 'تم حذف سند القبض بنجاح',
+    'not_found'                               => 'المورد المطلوب غير موجود',
     'lawyer_password_invalid'          => 'كلمة المرور الخاصة بالمحامي غير صحيحة لتأكيد العملية',
 ];
 

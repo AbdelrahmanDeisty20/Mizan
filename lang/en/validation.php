@@ -71,6 +71,11 @@ return [
         'requirements'         => 'requirements',
         'assigned_lawyer_id'   => 'assigned lawyer',
         'legal_case_id'        => 'legal case',
+        'receipt_number'       => 'receipt number',
+        'amount'               => 'amount collected',
+        'payment_method'       => 'payment method',
+        'receipt_date'         => 'receipt date',
+        'issuer'               => 'issuer',
     ],
 
 
@@ -106,6 +111,23 @@ return [
         ],
         'assigned_lawyer_id' => [
             'exists' => 'The selected assigned lawyer does not exist.',
+        ],
+        'user_id' => [
+            'exists' => 'The selected issuer lawyer does not exist.',
+        ],
+        'receipt_number' => [
+            'unique' => 'The receipt number has already been taken.',
+        ],
+        'amount' => [
+            'required' => 'The amount collected field is required.',
+            'min'      => 'The amount collected must be greater than zero.',
+        ],
+        'payment_method' => [
+            'required' => 'The payment method field is required.',
+        ],
+        'receipt_date' => [
+            'required' => 'The receipt date field is required.',
+            'date'     => 'The receipt date must be a valid date.',
         ],
         'degree_id' => [
             'exists' => 'The selected degree is invalid.',

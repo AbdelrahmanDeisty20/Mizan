@@ -43,10 +43,13 @@ return [
     'hearing_type_created_successfully'=> 'Hearing type added successfully',
     'hearing_type_updated_successfully'=> 'Hearing type updated successfully',
     'hearing_type_deleted_successfully'=> 'Hearing type deleted successfully',
-    'hearing_created_successfully'     => 'Hearing added successfully',
-    'hearing_updated_successfully'     => 'Hearing updated successfully',
-    'hearing_deleted_successfully'     => 'Hearing deleted successfully',
-    'not_found'                        => 'Resource not found',
+    'hearing_created_successfully'            => 'Hearing added successfully',
+    'hearing_updated_successfully'            => 'Hearing updated successfully',
+    'hearing_deleted_successfully'            => 'Hearing deleted successfully',
+    'financial_receipt_created_successfully'  => 'Financial receipt added successfully',
+    'financial_receipt_updated_successfully'  => 'Financial receipt updated successfully',
+    'financial_receipt_deleted_successfully'  => 'Financial receipt deleted successfully',
+    'not_found'                               => 'Resource not found',
     'lawyer_password_invalid'          => 'Lawyer password is incorrect to confirm the operation',
 ];
 
