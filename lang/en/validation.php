@@ -104,6 +104,9 @@ return [
             'required' => 'The legal case field is required.',
             'exists'   => 'The selected legal case does not exist.',
         ],
+        'assigned_lawyer_id' => [
+            'exists' => 'The selected assigned lawyer does not exist.',
+        ],
         'degree_id' => [
             'exists' => 'The selected degree is invalid.',
         ],

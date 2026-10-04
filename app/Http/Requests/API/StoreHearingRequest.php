@@ -25,7 +25,7 @@ class StoreHearingRequest extends FormRequest
         return [
             'legal_case_id'      => ['required', 'integer', 'exists:legal_cases,id'],
             'assigned_lawyer_id' => ['nullable', 'integer', 'exists:users,id'],
-            'hearing_date'       => ['required', 'date_format:Y-m-d'],
+            'hearing_date'       => ['required', 'date'],
             'hearing_time'       => ['required', 'date_format:H:i'],
             'hearing_type_id'    => ['required', 'integer', 'exists:hearing_types,id'],
             'court_room'         => ['nullable', 'string', 'max:255'],
@@ -69,7 +69,7 @@ class StoreHearingRequest extends FormRequest
             'legal_case_id.exists'        => __('validation.custom.legal_case_id.exists'),
             'assigned_lawyer_id.exists'   => __('validation.custom.assigned_lawyer_id.exists'),
             'hearing_date.required'       => __('validation.custom.hearing_date.required'),
-            'hearing_date.date_format'    => __('validation.custom.hearing_date.date_format'),
+            'hearing_date.date'           => __('validation.custom.hearing_date.date'),
             'hearing_time.required'       => __('validation.custom.hearing_time.required'),
             'hearing_time.date_format'    => __('validation.custom.hearing_time.date_format'),
             'hearing_type_id.required'    => __('validation.custom.hearing_type_id.required'),

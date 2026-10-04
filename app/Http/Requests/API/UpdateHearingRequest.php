@@ -25,7 +25,7 @@ class UpdateHearingRequest extends FormRequest
         return [
             'legal_case_id'      => ['nullable', 'integer', 'exists:legal_cases,id'],
             'assigned_lawyer_id' => ['nullable', 'integer', 'exists:users,id'],
-            'hearing_date'       => ['nullable', 'date_format:Y-m-d'],
+            'hearing_date'       => ['nullable', 'date'],
             'hearing_time'       => ['nullable', 'date_format:H:i'],
             'hearing_type_id'    => ['nullable', 'integer', 'exists:hearing_types,id'],
             'court_room'         => ['nullable', 'string', 'max:255'],
@@ -67,7 +67,7 @@ class UpdateHearingRequest extends FormRequest
         return [
             'legal_case_id.exists'      => __('validation.custom.legal_case_id.exists'),
             'assigned_lawyer_id.exists' => __('validation.custom.assigned_lawyer_id.exists'),
-            'hearing_date.date_format'  => __('validation.custom.hearing_date.date_format'),
+            'hearing_date.date'         => __('validation.custom.hearing_date.date'),
             'hearing_time.date_format'  => __('validation.custom.hearing_time.date_format'),
             'hearing_type_id.exists'    => __('validation.custom.hearing_type_id.exists'),
             'status.in'                 => __('validation.custom.status.in'),
