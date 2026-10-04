@@ -84,6 +84,7 @@ return [
             'date_format' => 'تاريخ الجلسة يجب أن يكون بصيغة YYYY-MM-DD.',
         ],
         'hearing_time' => [
+            'required'    => 'حقل وقت الجلسة مطلوب.',
             'date_format' => 'وقت الجلسة يجب أن يكون بصيغة HH:MM (مثال 09:30).',
         ],
         'hearing_type' => [

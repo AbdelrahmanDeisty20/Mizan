@@ -84,6 +84,7 @@ return [
             'date_format' => 'The hearing date must be in YYYY-MM-DD format.',
         ],
         'hearing_time' => [
+            'required'    => 'The hearing time field is required.',
             'date_format' => 'The hearing time must be in HH:MM format (e.g. 09:30).',
         ],
         'hearing_type' => [
