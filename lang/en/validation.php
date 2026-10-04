@@ -139,7 +139,8 @@ return [
             'exists' => 'The selected degree is invalid.',
         ],
         'governorate_id' => [
-            'exists' => 'The selected governorate is invalid.',
+            'required' => 'The governorate field is required.',
+            'exists'   => 'The selected governorate is invalid.',
         ],
         'email' => [
             'unique' => 'The email address is already registered.',
@@ -175,7 +176,8 @@ return [
             'in' => 'Client role must be one of: plaintiff, defendant, appellant, appellee, petitioner, respondent, intervener.',
         ],
         'court_id' => [
-            'exists' => 'The selected court does not exist.',
+            'required' => 'The court field is required.',
+            'exists'   => 'The selected court does not exist.',
         ],
         'case_type' => [
             'in' => 'Case type must be one of: civil, criminal, family, administrative, commercial, labor.',

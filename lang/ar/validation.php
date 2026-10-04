@@ -139,7 +139,8 @@ return [
             'exists' => 'درجة القيد المحددة غير صالحة.',
         ],
         'governorate_id' => [
-            'exists' => 'المحافظة المحددة غير صالحة.',
+            'required' => 'حقل المحافظة مطلوب.',
+            'exists'   => 'المحافظة المحددة غير صالحة.',
         ],
         'email' => [
             'unique' => 'البريد الإلكتروني مسجل بالفعل.',
@@ -175,7 +176,8 @@ return [
             'in' => 'صفة الموكل يجب أن تكون: plaintiff, defendant, appellant, appellee, petitioner, respondent, intervener.',
         ],
         'court_id' => [
-            'exists' => 'المحكمة المحددة غير موجودة.',
+            'required' => 'حقل المحكمة مطلوب.',
+            'exists'   => 'المحكمة المحددة غير موجودة.',
         ],
         'case_type' => [
             'in' => 'نوع الدعوى يجب أن يكون: civil, criminal, family, administrative, commercial, labor.',
