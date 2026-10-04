@@ -8,6 +8,7 @@ use App\Http\Controllers\API\CourtController;
 use App\Http\Controllers\API\DegreeController;
 use App\Http\Controllers\API\GovernorateController;
 use App\Http\Controllers\API\HearingController;
+use App\Http\Controllers\API\HearingTypeController;
 use App\Http\Controllers\API\LegalCaseController;
 use App\Http\Middleware\SetLang;
 use Illuminate\Support\Facades\Route;
@@ -38,6 +39,7 @@ Route::middleware([SetLang::class])->group(function () {
     Route::get('degrees', [DegreeController::class, 'index']);
     Route::get('governorates', [GovernorateController::class, 'index']);
     Route::get('courts', [CourtController::class, 'index']);
+    Route::get('hearing-types', [HearingTypeController::class, 'index']);
 
     // Protected Routes
     Route::middleware('auth:sanctum')->group(function () {
@@ -46,12 +48,14 @@ Route::middleware([SetLang::class])->group(function () {
         Route::post('clients/{client}', [ClientController::class, 'update']);
         Route::post('governorates/{governorate}', [GovernorateController::class, 'update']);
         Route::post('courts/{court}', [CourtController::class, 'update']);
+        Route::post('hearing-types/{hearing_type}', [HearingTypeController::class, 'update']);
         Route::post('hearings/{hearing}', [HearingController::class, 'update']);
         Route::apiResource('clients', ClientController::class);
         Route::apiResource('legal-cases', LegalCaseController::class);
         Route::apiResource('hearings', HearingController::class);
         Route::apiResource('governorates', GovernorateController::class)->except(['index']);
         Route::apiResource('courts', CourtController::class)->except(['index']);
+        Route::apiResource('hearing-types', HearingTypeController::class)->except(['index']);
     });
 });
 

@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             GovernorateSeeder::class,
             DegreeSeeder::class,
             CourtSeeder::class,
+            HearingTypeSeeder::class,
         ]);
     }
 }

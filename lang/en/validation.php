@@ -61,7 +61,10 @@ return [
         'image'                => 'image',
         'type'                 => 'image type',
         'hearing_date'         => 'hearing date',
+        'hearing_time'         => 'hearing time',
         'hearing_type'         => 'hearing type',
+        'hearing_type_id'      => 'hearing type',
+        'hearing_type_name'    => 'hearing type name',
         'court_room'           => 'court room',
         'roll_number'          => 'roll number',
         'decision'             => 'decision',
@@ -76,11 +79,22 @@ return [
             'required_without_all' => 'Either email, phone number, or syndicate card ID is required to login.',
         ],
         'hearing_date' => [
-            'required' => 'The hearing date field is required.',
-            'date'     => 'The hearing date must be a valid date.',
+            'required'    => 'The hearing date field is required.',
+            'date'        => 'The hearing date must be a valid date.',
+            'date_format' => 'The hearing date must be in YYYY-MM-DD format.',
+        ],
+        'hearing_time' => [
+            'date_format' => 'The hearing time must be in HH:MM format (e.g. 09:30).',
         ],
         'hearing_type' => [
             'required' => 'The hearing type field is required.',
+        ],
+        'hearing_type_id' => [
+            'required' => 'The hearing type field is required.',
+            'exists'   => 'The selected hearing type does not exist.',
+        ],
+        'hearing_type_name' => [
+            'unique' => 'The hearing type name has already been taken.',
         ],
         'status' => [
             'in' => 'The selected status is invalid.',

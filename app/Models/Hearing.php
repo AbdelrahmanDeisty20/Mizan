@@ -15,7 +15,8 @@ class Hearing extends Model
         'legal_case_id',
         'assigned_lawyer_id',
         'hearing_date',
-        'hearing_type',
+        'hearing_time',
+        'hearing_type_id',
         'court_room',
         'roll_number',
         'decision',
@@ -24,7 +25,7 @@ class Hearing extends Model
     ];
 
     protected $casts = [
-        'hearing_date' => 'datetime',
+        'hearing_date' => 'date:Y-m-d',
     ];
 
     public function office(): BelongsTo
@@ -40,5 +41,10 @@ class Hearing extends Model
     public function assignedLawyer(): BelongsTo
     {
         return $this->belongsTo(User::class, 'assigned_lawyer_id');
+    }
+
+    public function hearingType(): BelongsTo
+    {
+        return $this->belongsTo(HearingType::class);
     }
 }

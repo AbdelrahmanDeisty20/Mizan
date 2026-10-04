@@ -38,7 +38,7 @@ class HearingService
         $perPage = request()->get('per_page', 10);
 
         $hearings = Hearing::where('office_id', auth()->user()->office_id)
-            ->with(['legalCase', 'legalCase.client'])
+            ->with(['legalCase', 'legalCase.client', 'hearingType'])
             ->latest('hearing_date')
             ->paginate($perPage);
 
@@ -63,7 +63,7 @@ class HearingService
         return response()->json([
             'status'  => true,
             'message' => __('messages.success'),
-            'data'    => new HearingResource($hearing->load('legalCase')),
+            'data'    => new HearingResource($hearing->load('legalCase', 'hearingType')),
         ], 200);
     }
 
@@ -82,7 +82,8 @@ class HearingService
             'legal_case_id'      => $data['legal_case_id'],
             'assigned_lawyer_id' => $data['assigned_lawyer_id'] ?? null,
             'hearing_date'       => $data['hearing_date'],
-            'hearing_type'       => $data['hearing_type'] ?? null,
+            'hearing_time'       => $data['hearing_time'] ?? null,
+            'hearing_type_id'    => $data['hearing_type_id'] ?? null,
             'court_room'         => $data['court_room'] ?? null,
             'roll_number'        => $data['roll_number'] ?? null,
             'decision'           => $data['decision'] ?? null,
@@ -93,7 +94,7 @@ class HearingService
         return response()->json([
             'status'  => true,
             'message' => __('messages.hearing_created_successfully'),
-            'data'    => new HearingResource($hearing->load('legalCase')),
+            'data'    => new HearingResource($hearing->load('legalCase', 'hearingType')),
         ], 201);
     }
 
@@ -117,7 +118,7 @@ class HearingService
         return response()->json([
             'status'  => true,
             'message' => __('messages.hearing_updated_successfully'),
-            'data'    => new HearingResource($hearing->fresh()->load('legalCase')),
+            'data'    => new HearingResource($hearing->fresh()->load('legalCase', 'hearingType')),
         ], 200);
     }
 

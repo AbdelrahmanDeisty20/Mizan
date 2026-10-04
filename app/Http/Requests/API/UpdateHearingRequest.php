@@ -25,8 +25,9 @@ class UpdateHearingRequest extends FormRequest
         return [
             'legal_case_id'      => ['nullable', 'integer', 'exists:legal_cases,id'],
             'assigned_lawyer_id' => ['nullable', 'integer', 'exists:users,id'],
-            'hearing_date'       => ['nullable', 'date'],
-            'hearing_type'       => ['nullable', 'string', 'max:255'],
+            'hearing_date'       => ['nullable', 'date_format:Y-m-d'],
+            'hearing_time'       => ['nullable', 'date_format:H:i'],
+            'hearing_type_id'    => ['nullable', 'integer', 'exists:hearing_types,id'],
             'court_room'         => ['nullable', 'string', 'max:255'],
             'roll_number'        => ['nullable', 'string', 'max:100'],
             'decision'           => ['nullable', 'string'],
@@ -46,7 +47,8 @@ class UpdateHearingRequest extends FormRequest
             'legal_case_id'      => __('validation.attributes.legal_case_id'),
             'assigned_lawyer_id' => __('validation.attributes.assigned_lawyer_id'),
             'hearing_date'       => __('validation.attributes.hearing_date'),
-            'hearing_type'       => __('validation.attributes.hearing_type'),
+            'hearing_time'       => __('validation.attributes.hearing_time'),
+            'hearing_type_id'    => __('validation.attributes.hearing_type_id'),
             'court_room'         => __('validation.attributes.court_room'),
             'roll_number'        => __('validation.attributes.roll_number'),
             'decision'           => __('validation.attributes.decision'),
@@ -65,7 +67,9 @@ class UpdateHearingRequest extends FormRequest
         return [
             'legal_case_id.exists'      => __('validation.custom.legal_case_id.exists'),
             'assigned_lawyer_id.exists' => __('validation.custom.assigned_lawyer_id.exists'),
-            'hearing_date.date'         => __('validation.custom.hearing_date.date'),
+            'hearing_date.date_format'  => __('validation.custom.hearing_date.date_format'),
+            'hearing_time.date_format'  => __('validation.custom.hearing_time.date_format'),
+            'hearing_type_id.exists'    => __('validation.custom.hearing_type_id.exists'),
             'status.in'                 => __('validation.custom.status.in'),
         ];
     }
