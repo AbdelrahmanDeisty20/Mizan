@@ -51,5 +51,13 @@ return [
     'financial_receipt_deleted_successfully'  => 'Financial receipt deleted successfully',
     'not_found'                               => 'Resource not found',
     'lawyer_password_invalid'          => 'Lawyer password is incorrect to confirm the operation',
+    'service_request_created_successfully'    => 'Service request created successfully',
+    'service_request_updated_successfully'    => 'Service request updated successfully',
+    'service_request_deleted_successfully'    => 'Service request deleted successfully',
+    'cannot_offer_own_request'                => 'You cannot submit an offer to your own service request',
+    'service_request_not_open'                => 'Service request is closed or already assigned',
+    'offer_submitted_successfully'            => 'Offer submitted successfully to colleague',
+    'offer_does_not_belong_to_request'        => 'The specified offer does not belong to this request',
+    'offer_accepted_successfully'             => 'Offer accepted and service request assigned successfully',
 ];
 

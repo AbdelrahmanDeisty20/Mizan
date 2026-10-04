@@ -51,5 +51,13 @@ return [
     'financial_receipt_deleted_successfully'  => 'تم حذف سند القبض بنجاح',
     'not_found'                               => 'المورد المطلوب غير موجود',
     'lawyer_password_invalid'          => 'كلمة المرور الخاصة بالمحامي غير صحيحة لتأكيد العملية',
+    'service_request_created_successfully'    => 'تم إنشاء طلب الإنابة بنجاح',
+    'service_request_updated_successfully'    => 'تم تحديث طلب الإنابة بنجاح',
+    'service_request_deleted_successfully'    => 'تم حذف طلب الإنابة بنجاح',
+    'cannot_offer_own_request'                => 'لا يمكنك تقديم عرض على طلب إنابة خاص بك',
+    'service_request_not_open'                => 'طلب الإنابة مغلق أو تم إسناده مسبقاً',
+    'offer_submitted_successfully'            => 'تم تقديم العرض للزميل بنجاح',
+    'offer_does_not_belong_to_request'        => 'العرض المحدد لا يخص هذا الطلب',
+    'offer_accepted_successfully'             => 'تم قبول العرض وإسناد الإنابة بنجاح',
 ];
 

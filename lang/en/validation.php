@@ -76,6 +76,11 @@ return [
         'payment_method'       => 'payment method',
         'receipt_date'         => 'receipt date',
         'issuer'               => 'issuer',
+        'service_title'        => 'service title',
+        'service_description'  => 'service description',
+        'offered_fee'          => 'offered fee',
+        'proposed_fee'         => 'proposed fee',
+        'due_date'             => 'due date',
     ],
 
 
@@ -202,6 +207,24 @@ return [
         ],
         'trial_ends_at' => [
             'date' => 'The trial end date must be a valid date.',
+        ],
+        'service_title' => [
+            'required' => 'The service title field is required.',
+        ],
+        'service_description' => [
+            'required' => 'The service description field is required.',
+        ],
+        'offered_fee' => [
+            'required' => 'The offered fee field is required.',
+            'min'      => 'Offered fee must not be less than zero.',
+        ],
+        'proposed_fee' => [
+            'required' => 'The proposed fee field is required.',
+            'min'      => 'Proposed fee must not be less than zero.',
+        ],
+        'due_date' => [
+            'required' => 'The due date field is required.',
+            'date'     => 'Due date must be a valid date.',
         ],
     ],
 ];

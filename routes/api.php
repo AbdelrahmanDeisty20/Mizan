@@ -11,6 +11,7 @@ use App\Http\Controllers\API\GovernorateController;
 use App\Http\Controllers\API\HearingController;
 use App\Http\Controllers\API\HearingTypeController;
 use App\Http\Controllers\API\LegalCaseController;
+use App\Http\Controllers\API\ServiceRequestController;
 use App\Http\Middleware\SetLang;
 use Illuminate\Support\Facades\Route;
 
@@ -52,6 +53,12 @@ Route::middleware([SetLang::class])->group(function () {
         Route::post('hearing-types/{hearing_type}', [HearingTypeController::class, 'update']);
         Route::post('hearings/{hearing}', [HearingController::class, 'update']);
         Route::post('financial-receipts/{financial_receipt}', [FinancialReceiptController::class, 'update']);
+        Route::get('service-requests/my-requests', [ServiceRequestController::class, 'myRequests']);
+        Route::get('service-requests/my-assigned', [ServiceRequestController::class, 'myAssigned']);
+        Route::post('service-requests/{service_request}', [ServiceRequestController::class, 'update']);
+        Route::post('service-requests/{service_request}/offers', [ServiceRequestController::class, 'submitOffer']);
+        Route::post('service-requests/{service_request}/offers/{offer}/accept', [ServiceRequestController::class, 'acceptOffer']);
+        Route::apiResource('service-requests', ServiceRequestController::class);
         Route::apiResource('clients', ClientController::class);
         Route::apiResource('legal-cases', LegalCaseController::class);
         Route::apiResource('hearings', HearingController::class);
