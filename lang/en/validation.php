@@ -116,7 +116,8 @@ return [
             'exists' => 'The selected issuer lawyer does not exist.',
         ],
         'receipt_number' => [
-            'unique' => 'The receipt number has already been taken.',
+            'required' => 'The receipt number field is required.',
+            'unique'   => 'The receipt number has already been taken.',
         ],
         'amount' => [
             'required' => 'The amount collected field is required.',
