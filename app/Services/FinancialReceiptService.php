@@ -127,7 +127,7 @@ class FinancialReceiptService
             'user_id'        => $data['user_id'] ?? $user->id,
             'receipt_number' => $data['receipt_number'] ?? $this->generateReceiptNumber(),
             'amount'         => $data['amount'],
-            'payment_method' => $data['payment_method'],
+            'payment_method' => $data['payment_method'] ?? 'نقدي',
             'date'           => $data['date'],
             'notes'          => $data['notes'] ?? null,
         ]);
@@ -158,7 +158,8 @@ class FinancialReceiptService
 
         $oldCaseId = $financialReceipt->legal_case_id;
 
-        $financialReceipt->update($data);
+        $updateData = array_filter($data, fn($value) => !is_null($value));
+        $financialReceipt->update($updateData);
 
         $this->syncLegalCaseFees($oldCaseId);
         if ($financialReceipt->legal_case_id !== $oldCaseId) {
