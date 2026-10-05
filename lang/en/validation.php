@@ -81,6 +81,10 @@ return [
         'offered_fee'          => 'offered fee',
         'proposed_fee'         => 'proposed fee',
         'due_date'             => 'due date',
+        'consultation_method'  => 'preferred consultation method',
+        'preferred_date'       => 'preferred date',
+        'preferred_time'       => 'preferred time',
+        'subject'              => 'consultation subject',
     ],
 
 
@@ -227,6 +231,19 @@ return [
         'due_date' => [
             'required' => 'The due date field is required.',
             'date'     => 'Due date must be a valid date.',
+        ],
+        'consultation_method' => [
+            'required' => 'Please select your preferred consultation method.',
+        ],
+        'preferred_date' => [
+            'required' => 'Please select your preferred consultation date.',
+            'date'     => 'The consultation date must be a valid date.',
+        ],
+        'preferred_time' => [
+            'required' => 'Please select your preferred consultation time.',
+        ],
+        'subject' => [
+            'required' => 'Please write the consultation subject or questions.',
         ],
     ],
 ];
