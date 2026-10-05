@@ -118,6 +118,21 @@ class ConsultationService
     }
 
     /**
+     * Update an existing consultation.
+     */
+    public function update(array $data, Consultation $consultation): JsonResponse
+    {
+        $updateData = array_filter($data, fn ($value) => ! is_null($value));
+        $consultation->update($updateData);
+
+        return response()->json([
+            'status'  => true,
+            'message' => __('messages.consultation_updated_successfully'),
+            'data'    => new ConsultationResource($consultation->fresh()->load(['client', 'office', 'user'])),
+        ], 200);
+    }
+
+    /**
      * Delete consultation.
      */
     public function destroy(Consultation $consultation): JsonResponse

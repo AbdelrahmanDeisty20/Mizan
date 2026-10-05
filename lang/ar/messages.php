@@ -66,6 +66,7 @@ return [
     'history_cleared_successfully'            => 'تم مسح سجل المحادثات بنجاح',
     'no_chat_history_found'                   => 'لا يوجد سجل محادثات سابق',
     'consultation_created_successfully'       => 'تم إنشاء طلب الاستشارة القانونية بنجاح',
+    'consultation_updated_successfully'       => 'تم تحديث بيانات الاستشارة بنجاح',
     'consultation_replied_successfully'       => 'تم الإجابة والرد على الاستشارة بنجاح',
     'consultation_deleted_successfully'       => 'تم حذف الاستشارة بنجاح',
 ];

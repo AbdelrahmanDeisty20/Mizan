@@ -59,7 +59,6 @@ class ConsultationTest extends TestCase
                     'preferred_time',
                     'subject',
                     'status',
-                    'reply',
                     'created_at',
                 ],
             ]);
@@ -156,6 +155,16 @@ class ConsultationTest extends TestCase
         $listRes = $this->actingAs($lawyer, 'sanctum')
             ->getJson('/api/consultations');
         $listRes->assertStatus(200);
+
+        $updateRes = $this->actingAs($lawyer, 'sanctum')
+            ->putJson("/api/consultations/{$consultation->id}", [
+                'subject' => 'موضوع معدل للاختبار',
+            ]);
+        $updateRes->assertStatus(200);
+        $this->assertDatabaseHas('consultations', [
+            'id'      => $consultation->id,
+            'subject' => 'موضوع معدل للاختبار',
+        ]);
 
         $delRes = $this->actingAs($lawyer, 'sanctum')
             ->deleteJson("/api/consultations/{$consultation->id}");

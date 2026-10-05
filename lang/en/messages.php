@@ -66,6 +66,7 @@ return [
     'history_cleared_successfully'            => 'Chat history cleared successfully',
     'no_chat_history_found'                   => 'No chat history found',
     'consultation_created_successfully'       => 'Legal consultation requested successfully',
+    'consultation_updated_successfully'       => 'Consultation updated successfully',
     'consultation_replied_successfully'       => 'Consultation replied successfully',
     'consultation_deleted_successfully'       => 'Consultation deleted successfully',
 ];

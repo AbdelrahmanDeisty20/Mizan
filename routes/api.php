@@ -72,6 +72,7 @@ Route::middleware([SetLang::class])->group(function () {
 
         // Client Consultation Routes
         Route::post('consultations/{consultation}/reply', [ConsultationController::class, 'reply']);
+        Route::post('consultations/{consultation}', [ConsultationController::class, 'update']);
         Route::apiResource('consultations', ConsultationController::class);
 
         // Groq AI Legal Assistant Routes

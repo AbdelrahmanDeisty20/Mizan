@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\ReplyConsultationRequest;
 use App\Http\Requests\API\StoreConsultationRequest;
+use App\Http\Requests\API\UpdateConsultationRequest;
 use App\Models\Consultation;
 use App\Services\ConsultationService;
 use Illuminate\Http\JsonResponse;
@@ -35,6 +36,14 @@ class ConsultationController extends Controller
     public function show(Consultation $consultation): JsonResponse
     {
         return $this->consultationService->show($consultation);
+    }
+
+    /**
+     * Update the specified consultation.
+     */
+    public function update(UpdateConsultationRequest $request, Consultation $consultation): JsonResponse
+    {
+        return $this->consultationService->update($request->validated(), $consultation);
     }
 
     /**
