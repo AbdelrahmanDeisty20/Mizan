@@ -59,5 +59,10 @@ return [
     'offer_submitted_successfully'            => 'تم تقديم العرض للزميل بنجاح',
     'offer_does_not_belong_to_request'        => 'العرض المحدد لا يخص هذا الطلب',
     'offer_accepted_successfully'             => 'تم قبول العرض وإسناد الإنابة بنجاح',
+    'chatbot_response_success'                => 'تم الحصول على رد المستشار الذكي بنجاح',
+    'suggestions_retrieved_successfully'       => 'تم جلب مقترحات الأسئلة بنجاح',
+    'history_retrieved_successfully'          => 'تم جلب سجل المحادثات بنجاح',
+    'history_cleared_successfully'            => 'تم مسح سجل المحادثات بنجاح',
+    'no_chat_history_found'                   => 'لا يوجد سجل محادثات سابق',
 ];
 

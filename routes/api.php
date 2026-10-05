@@ -11,6 +11,7 @@ use App\Http\Controllers\API\GovernorateController;
 use App\Http\Controllers\API\HearingController;
 use App\Http\Controllers\API\HearingTypeController;
 use App\Http\Controllers\API\LegalCaseController;
+use App\Http\Controllers\API\ChatbotController;
 use App\Http\Controllers\API\ServiceRequestController;
 use App\Http\Middleware\SetLang;
 use Illuminate\Support\Facades\Route;
@@ -66,6 +67,12 @@ Route::middleware([SetLang::class])->group(function () {
         Route::apiResource('governorates', GovernorateController::class)->except(['index']);
         Route::apiResource('courts', CourtController::class)->except(['index']);
         Route::apiResource('hearing-types', HearingTypeController::class)->except(['index']);
+
+        // Groq AI Legal Assistant Routes
+        Route::post('chatbot/chat', [ChatbotController::class, 'chat']);
+        Route::get('chatbot/suggestions', [ChatbotController::class, 'suggestions']);
+        Route::get('chatbot/history', [ChatbotController::class, 'history']);
+        Route::delete('chatbot/history', [ChatbotController::class, 'clearHistory']);
     });
 });
 
