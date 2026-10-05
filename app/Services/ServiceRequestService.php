@@ -295,25 +295,26 @@ class ServiceRequestService
     /**
      * Accept an offer and assign the service request to the corresponding lawyer.
      */
-    public function acceptOffer(ServiceRequest $serviceRequest, ServiceRequestOffer $offer): JsonResponse
+    public function acceptOffer(ServiceRequestOffer $offer): JsonResponse
     {
         $deny = $this->authorizeAsLawyer();
         if ($deny) return $deny;
 
         $user = auth()->user();
+        $serviceRequest = $offer->serviceRequest;
+
+        if (! $serviceRequest) {
+            return response()->json([
+                'status'  => false,
+                'message' => __('messages.not_found'),
+            ], 404);
+        }
 
         if ($serviceRequest->user_id !== $user->id && $serviceRequest->requester_office_id !== $user->office_id) {
             return response()->json([
                 'status'  => false,
                 'message' => __('messages.unauthorized_role'),
             ], 403);
-        }
-
-        if ($offer->service_request_id !== $serviceRequest->id) {
-            return response()->json([
-                'status'  => false,
-                'message' => __('messages.offer_does_not_belong_to_request'),
-            ], 422);
         }
 
         // Accept this offer

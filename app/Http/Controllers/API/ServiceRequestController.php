@@ -86,8 +86,8 @@ class ServiceRequestController extends Controller
     /**
      * Accept an offer for a service request.
      */
-    public function acceptOffer(ServiceRequest $serviceRequest, ServiceRequestOffer $offer)
+    public function acceptOffer(ServiceRequestOffer $offer)
     {
-        return $this->serviceRequestService->acceptOffer($serviceRequest, $offer);
+        return $this->serviceRequestService->acceptOffer($offer);
     }
 }
