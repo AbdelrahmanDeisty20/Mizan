@@ -57,6 +57,7 @@ Route::middleware([SetLang::class])->group(function () {
         Route::post('financial-receipts/{financial_receipt}', [FinancialReceiptController::class, 'update']);
         Route::get('service-requests/my-requests', [ServiceRequestController::class, 'myRequests']);
         Route::get('service-requests/my-assigned', [ServiceRequestController::class, 'myAssigned']);
+        Route::get('service-requests/my-offers', [ServiceRequestController::class, 'myOffers']);
         Route::post('service-requests/{service_request}', [ServiceRequestController::class, 'update']);
         Route::post('service-requests/{service_request}/offers', [ServiceRequestController::class, 'submitOffer']);
         Route::post('service-requests/offers/{offer}/accept', [ServiceRequestController::class, 'acceptOffer']);

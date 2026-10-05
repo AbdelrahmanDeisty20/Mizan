@@ -44,6 +44,14 @@ class ServiceRequestController extends Controller
     }
 
     /**
+     * Display service request offers submitted by the authenticated lawyer.
+     */
+    public function myOffers()
+    {
+        return $this->serviceRequestService->myOffers();
+    }
+
+    /**
      * Store a newly created service request.
      */
     public function store(StoreServiceRequestRequest $request)

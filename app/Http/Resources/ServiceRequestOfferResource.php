@@ -19,9 +19,10 @@ class ServiceRequestOfferResource extends JsonResource
             'proposed_fee' => (float) $this->proposed_fee,
             'notes'        => $this->notes,
             'status'       => $this->status,
-            'user'         => new UserResource($this->whenLoaded('user')),
-            'office'       => new OfficeResource($this->whenLoaded('office')),
-            'created_at'   => $this->created_at?->toDateTimeString(),
+            'user'            => new UserResource($this->whenLoaded('user')),
+            'office'          => new OfficeResource($this->whenLoaded('office')),
+            'service_request' => new ServiceRequestResource($this->whenLoaded('serviceRequest')),
+            'created_at'      => $this->created_at?->toDateTimeString(),
         ];
     }
 }

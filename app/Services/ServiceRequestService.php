@@ -141,6 +141,33 @@ class ServiceRequestService
     }
 
     /**
+     * List offers submitted by the authenticated lawyer on service requests.
+     */
+    public function myOffers(): JsonResponse
+    {
+        $deny = $this->authorizeAsLawyer();
+        if ($deny) return $deny;
+
+        $user    = auth()->user();
+        $perPage = request()->get('per_page', 10);
+
+        $offers = ServiceRequestOffer::where('user_id', $user->id)
+            ->orWhere('office_id', $user->office_id)
+            ->with([
+                'serviceRequest.governorate',
+                'serviceRequest.court',
+                'serviceRequest.requesterOffice',
+                'serviceRequest.user',
+                'user',
+                'office',
+            ])
+            ->latest('id')
+            ->paginate($perPage);
+
+        return $this->paginated(ServiceRequestOfferResource::class, $offers, __('messages.success'));
+    }
+
+    /**
      * Show a single service request.
      */
     public function show(ServiceRequest $serviceRequest): JsonResponse

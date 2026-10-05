@@ -158,5 +158,23 @@ class ServiceRequestTest extends TestCase
             'id'     => $offer->id,
             'status' => 'rejected',
         ]);
+
+        // Test my-offers endpoint
+        $myOffersRes = $this->actingAs($offerer, 'sanctum')
+            ->getJson('/api/service-requests/my-offers');
+
+        $myOffersRes->assertStatus(200)
+            ->assertJsonStructure([
+                'status',
+                'message',
+                'data' => [
+                    '*' => [
+                        'id',
+                        'proposed_fee',
+                        'status',
+                        'service_request',
+                    ],
+                ],
+            ]);
     }
 }
