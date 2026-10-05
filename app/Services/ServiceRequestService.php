@@ -346,4 +346,47 @@ class ServiceRequestService
             ])),
         ], 200);
     }
+
+    /**
+     * Reject an offer for a service request.
+     */
+    public function rejectOffer(ServiceRequestOffer $offer): JsonResponse
+    {
+        $deny = $this->authorizeAsLawyer();
+        if ($deny) return $deny;
+
+        $user = auth()->user();
+        $serviceRequest = $offer->serviceRequest;
+
+        if (! $serviceRequest) {
+            return response()->json([
+                'status'  => false,
+                'message' => __('messages.not_found'),
+            ], 404);
+        }
+
+        if ($serviceRequest->user_id !== $user->id && $serviceRequest->requester_office_id !== $user->office_id) {
+            return response()->json([
+                'status'  => false,
+                'message' => __('messages.unauthorized_role'),
+            ], 403);
+        }
+
+        // Reject this offer
+        $offer->update(['status' => 'rejected']);
+
+        return response()->json([
+            'status'  => true,
+            'message' => __('messages.offer_rejected_successfully'),
+            'data'    => new ServiceRequestResource($serviceRequest->fresh()->load([
+                'governorate',
+                'court',
+                'user',
+                'requesterOffice',
+                'assignedUser',
+                'assignedOffice',
+                'offers.user',
+            ])),
+        ], 200);
+    }
 }

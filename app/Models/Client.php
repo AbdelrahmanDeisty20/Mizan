@@ -73,4 +73,9 @@ class Client extends Model
     {
         return $this->hasMany(FinancialReceipt::class);
     }
+
+    public function consultations(): HasMany
+    {
+        return $this->hasMany(Consultation::class);
+    }
 }

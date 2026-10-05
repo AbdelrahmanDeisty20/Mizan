@@ -90,4 +90,12 @@ class ServiceRequestController extends Controller
     {
         return $this->serviceRequestService->acceptOffer($offer);
     }
+
+    /**
+     * Reject an offer for a service request.
+     */
+    public function rejectOffer(ServiceRequestOffer $offer)
+    {
+        return $this->serviceRequestService->rejectOffer($offer);
+    }
 }

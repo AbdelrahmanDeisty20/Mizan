@@ -59,10 +59,14 @@ return [
     'offer_submitted_successfully'            => 'Offer submitted successfully to colleague',
     'offer_does_not_belong_to_request'        => 'The specified offer does not belong to this request',
     'offer_accepted_successfully'             => 'Offer accepted and service request assigned successfully',
+    'offer_rejected_successfully'             => 'Offer rejected successfully',
     'chatbot_response_success'                => 'AI assistant response retrieved successfully',
     'suggestions_retrieved_successfully'       => 'Suggestions retrieved successfully',
     'history_retrieved_successfully'          => 'Chat history retrieved successfully',
     'history_cleared_successfully'            => 'Chat history cleared successfully',
     'no_chat_history_found'                   => 'No chat history found',
+    'consultation_created_successfully'       => 'Legal consultation requested successfully',
+    'consultation_replied_successfully'       => 'Consultation replied successfully',
+    'consultation_deleted_successfully'       => 'Consultation deleted successfully',
 ];
 

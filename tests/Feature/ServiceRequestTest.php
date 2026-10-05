@@ -100,4 +100,63 @@ class ServiceRequestTest extends TestCase
             'case_number' => '12345/2026',
         ]);
     }
+
+    public function test_reject_offer_by_offer_id(): void
+    {
+        $office1 = Office::create([
+            'office_name'       => 'مكتب 1',
+            'syndicate_card_id' => '1111111111',
+            'office_address'    => 'القاهرة',
+            'office_phone'      => '01111111111',
+        ]);
+
+        $owner = User::factory()->create([
+            'role'      => 'lawyer',
+            'office_id' => $office1->id,
+        ]);
+
+        $office2 = Office::create([
+            'office_name'       => 'مكتب 2',
+            'syndicate_card_id' => '2222222222',
+            'office_address'    => 'الجيزة',
+            'office_phone'      => '01222222222',
+        ]);
+
+        $offerer = User::factory()->create([
+            'role'      => 'lawyer',
+            'office_id' => $office2->id,
+        ]);
+
+        $governorate = Governorate::create(['name' => 'القاهرة', 'name_ar' => 'القاهرة', 'name_en' => 'Cairo']);
+        $court = Court::create(['name' => 'محكمة القاهرة', 'governorate_id' => $governorate->id]);
+
+        $serviceRequest = ServiceRequest::create([
+            'requester_office_id' => $office1->id,
+            'user_id'             => $owner->id,
+            'title'               => 'طلب إنابة',
+            'description'         => 'وصف الطلب',
+            'governorate_id'      => $governorate->id,
+            'court_id'            => $court->id,
+            'due_date'            => '2026-12-01',
+            'offered_fee'         => 100,
+            'status'              => 'open',
+        ]);
+
+        $offer = \App\Models\ServiceRequestOffer::create([
+            'service_request_id' => $serviceRequest->id,
+            'user_id'            => $offerer->id,
+            'office_id'          => $office2->id,
+            'proposed_fee'       => 90,
+            'status'             => 'pending',
+        ]);
+
+        $response = $this->actingAs($owner, 'sanctum')
+            ->postJson("/api/service-requests/offers/{$offer->id}/reject");
+
+        $response->assertStatus(200);
+        $this->assertDatabaseHas('service_request_offers', [
+            'id'     => $offer->id,
+            'status' => 'rejected',
+        ]);
+    }
 }

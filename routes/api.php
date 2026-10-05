@@ -12,6 +12,7 @@ use App\Http\Controllers\API\HearingController;
 use App\Http\Controllers\API\HearingTypeController;
 use App\Http\Controllers\API\LegalCaseController;
 use App\Http\Controllers\API\ChatbotController;
+use App\Http\Controllers\API\ConsultationController;
 use App\Http\Controllers\API\ServiceRequestController;
 use App\Http\Middleware\SetLang;
 use Illuminate\Support\Facades\Route;
@@ -59,6 +60,7 @@ Route::middleware([SetLang::class])->group(function () {
         Route::post('service-requests/{service_request}', [ServiceRequestController::class, 'update']);
         Route::post('service-requests/{service_request}/offers', [ServiceRequestController::class, 'submitOffer']);
         Route::post('service-requests/offers/{offer}/accept', [ServiceRequestController::class, 'acceptOffer']);
+        Route::post('service-requests/offers/{offer}/reject', [ServiceRequestController::class, 'rejectOffer']);
         Route::apiResource('service-requests', ServiceRequestController::class);
         Route::apiResource('clients', ClientController::class);
         Route::apiResource('legal-cases', LegalCaseController::class);
@@ -67,6 +69,10 @@ Route::middleware([SetLang::class])->group(function () {
         Route::apiResource('governorates', GovernorateController::class)->except(['index']);
         Route::apiResource('courts', CourtController::class)->except(['index']);
         Route::apiResource('hearing-types', HearingTypeController::class)->except(['index']);
+
+        // Client Consultation Routes
+        Route::post('consultations/{consultation}/reply', [ConsultationController::class, 'reply']);
+        Route::apiResource('consultations', ConsultationController::class);
 
         // Groq AI Legal Assistant Routes
         Route::post('chatbot/chat', [ChatbotController::class, 'chat']);

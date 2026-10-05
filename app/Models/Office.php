@@ -78,6 +78,11 @@ class Office extends Model
         return $this->hasMany(ServiceRequest::class, 'assigned_office_id');
     }
 
+    public function consultations(): HasMany
+    {
+        return $this->hasMany(Consultation::class);
+    }
+
     public function isTrialActive(): bool
     {
         if (! $this->trial_ends_at) {

@@ -59,10 +59,14 @@ return [
     'offer_submitted_successfully'            => 'تم تقديم العرض للزميل بنجاح',
     'offer_does_not_belong_to_request'        => 'العرض المحدد لا يخص هذا الطلب',
     'offer_accepted_successfully'             => 'تم قبول العرض وإسناد الإنابة بنجاح',
+    'offer_rejected_successfully'             => 'تم رفض العرض بنجاح',
     'chatbot_response_success'                => 'تم الحصول على رد المستشار الذكي بنجاح',
     'suggestions_retrieved_successfully'       => 'تم جلب مقترحات الأسئلة بنجاح',
     'history_retrieved_successfully'          => 'تم جلب سجل المحادثات بنجاح',
     'history_cleared_successfully'            => 'تم مسح سجل المحادثات بنجاح',
     'no_chat_history_found'                   => 'لا يوجد سجل محادثات سابق',
+    'consultation_created_successfully'       => 'تم إنشاء طلب الاستشارة القانونية بنجاح',
+    'consultation_replied_successfully'       => 'تم الإجابة والرد على الاستشارة بنجاح',
+    'consultation_deleted_successfully'       => 'تم حذف الاستشارة بنجاح',
 ];
 
