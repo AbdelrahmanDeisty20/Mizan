@@ -183,7 +183,7 @@ class ServiceRequestService
             'description'         => $data['description'],
             'governorate_id'      => $data['governorate_id'],
             'court_id'            => $data['court_id'],
-            'case_number'         => $data['case_number'] ?? null,
+            'case_number'         => !empty($data['case_number']) ? $data['case_number'] : ServiceRequest::generateCaseNumber(),
             'due_date'            => $data['due_date'],
             'offered_fee'         => $data['offered_fee'],
             'contact_phone'       => $data['contact_phone'] ?? $user->phone,

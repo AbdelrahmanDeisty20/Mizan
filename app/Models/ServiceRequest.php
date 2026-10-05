@@ -35,6 +35,36 @@ class ServiceRequest extends Model
     ];
 
     /**
+     * The "booted" method of the model.
+     */
+    protected static function booted(): void
+    {
+        static::creating(function (ServiceRequest $serviceRequest) {
+            if (empty($serviceRequest->case_number)) {
+                $serviceRequest->case_number = static::generateCaseNumber();
+            }
+        });
+    }
+
+    /**
+     * Generate a unique default case number for service request.
+     * Format: SR-YYYY-XXXX (e.g. SR-2026-0001)
+     */
+    public static function generateCaseNumber(): string
+    {
+        $year = date('Y');
+        $nextId = (static::max('id') ?? 0) + 1;
+        $caseNumber = sprintf('SR-%s-%04d', $year, $nextId);
+
+        while (static::where('case_number', $caseNumber)->exists()) {
+            $nextId++;
+            $caseNumber = sprintf('SR-%s-%04d', $year, $nextId);
+        }
+
+        return $caseNumber;
+    }
+
+    /**
      * Mutator to automatically format incoming date to YYYY-MM-DD for MySQL.
      */
     protected function dueDate(): Attribute
