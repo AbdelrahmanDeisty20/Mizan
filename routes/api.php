@@ -49,7 +49,7 @@ Route::middleware([SetLang::class])->group(function () {
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('profile', [AuthController::class, 'profile']);
         Route::get('profile/{id}', [AuthController::class, 'getProfileById']);
-        Route::post('profile/update', [AuthController::class, 'updateProfile']);
+        Route::post('profile/update', [AuthController::class, 'updateProfile'])->middleware('accepted');
     });
 
     // Protected Routes requiring acceptance (auth:sanctum + accepted)
