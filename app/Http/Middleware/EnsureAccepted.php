@@ -27,13 +27,39 @@ class EnsureAccepted
 
         $isAccepted = (bool) ($user->is_accepted ?? ! is_null($user->email_verified_at));
 
-        if (! $isAccepted) {
-            return response()->json([
-                'status'  => false,
-                'message' => __('messages.account_not_accepted'),
-            ], 403);
+        if ($isAccepted) {
+            return $next($request);
         }
 
-        return $next($request);
+        // Allow safe read methods (GET, HEAD, OPTIONS) for unaccepted users
+        if ($request->isMethodSafe()) {
+            return $next($request);
+        }
+
+        // Allow unaccepted users to update their phone number on profile update
+        if ($request->is('api/profile/update') || $request->is('profile/update')) {
+            $restrictedKeys = [
+                'name', 'email', 'office_name', 'degree_id', 'governorate_id',
+                'address', 'office_address', 'syndicate_card_id', 'trial_ends_at',
+                'avatar', 'syndicate_card_image', 'image', 'type',
+            ];
+
+            $hasRestrictedFields = false;
+            foreach ($restrictedKeys as $key) {
+                if ($request->has($key) && ! is_null($request->input($key))) {
+                    $hasRestrictedFields = true;
+                    break;
+                }
+            }
+
+            if (! $hasRestrictedFields) {
+                return $next($request);
+            }
+        }
+
+        return response()->json([
+            'status'  => false,
+            'message' => __('messages.account_not_accepted'),
+        ], 403);
     }
 }
