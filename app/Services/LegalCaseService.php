@@ -153,4 +153,61 @@ class LegalCaseService
             'message' => __('messages.legal_case_deleted_successfully'),
         ], 200);
     }
+
+    /**
+     * List all legal cases for the authenticated client.
+     */
+    public function clientCases()
+    {
+        $client = auth()->user();
+
+        if (! $client || ! ($client instanceof \App\Models\Client)) {
+            return response()->json([
+                'status'  => false,
+                'message' => __('messages.unauthorized_role'),
+            ], 403);
+        }
+
+        $perPage = request()->get('per_page', 10);
+
+        $cases = LegalCase::where('client_id', $client->id)
+            ->with(['court', 'hearings.hearingType', 'hearings.assignedLawyer'])
+            ->latest()
+            ->paginate($perPage);
+
+        return $this->paginated(LegalCaseResource::class, $cases, __('messages.success'));
+    }
+
+    /**
+     * Show a single legal case for the authenticated client.
+     */
+    public function clientShow($id)
+    {
+        $client = auth()->user();
+
+        if (! $client || ! ($client instanceof \App\Models\Client)) {
+            return response()->json([
+                'status'  => false,
+                'message' => __('messages.unauthorized_role'),
+            ], 403);
+        }
+
+        $legalCase = LegalCase::where('client_id', $client->id)
+            ->where('id', $id)
+            ->with(['court', 'hearings.hearingType', 'hearings.assignedLawyer'])
+            ->first();
+
+        if (! $legalCase) {
+            return response()->json([
+                'status'  => false,
+                'message' => __('messages.not_found'),
+            ], 404);
+        }
+
+        return response()->json([
+            'status'  => true,
+            'message' => __('messages.success'),
+            'data'    => new LegalCaseResource($legalCase),
+        ], 200);
+    }
 }

@@ -56,4 +56,20 @@ class LegalCaseController extends Controller
     {
         return $this->legalCaseService->destroy($legalCase);
     }
+
+    /**
+     * Display a listing of legal cases for the authenticated client.
+     */
+    public function clientCases()
+    {
+        return $this->legalCaseService->clientCases();
+    }
+
+    /**
+     * Display a specific legal case for the authenticated client.
+     */
+    public function clientShow($id)
+    {
+        return $this->legalCaseService->clientShow($id);
+    }
 }

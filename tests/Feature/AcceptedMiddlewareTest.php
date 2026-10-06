@@ -55,7 +55,10 @@ class AcceptedMiddlewareTest extends TestCase
         ]);
 
         $response = $this->actingAs($unacceptedUser, 'sanctum')
-            ->getJson('/api/clients');
+            ->postJson('/api/clients', [
+                'name'  => 'عميل جديد',
+                'phone' => '01099998888',
+            ]);
 
         $response->assertStatus(403)
             ->assertJson([
