@@ -32,9 +32,6 @@ class LegalCaseService
      */
     public function index()
     {
-        $deny = $this->authorizeAsLawyer();
-        if ($deny) return $deny;
-
         $perPage = request()->get('per_page', 10);
 
         $cases = LegalCase::where('office_id', auth()->user()->office_id)
