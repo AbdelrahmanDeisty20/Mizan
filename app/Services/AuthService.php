@@ -271,6 +271,25 @@ class AuthService
             ], 404);
         }
 
+        $isAccepted = (bool) ($user->is_accepted ?? ! is_null($user->email_verified_at));
+
+        if (! $isAccepted) {
+            $restrictedKeys = [
+                'name', 'email', 'office_name', 'degree_id', 'governorate_id',
+                'address', 'office_address', 'syndicate_card_id', 'trial_ends_at',
+                'avatar', 'syndicate_card_image', 'image', 'type',
+            ];
+
+            foreach ($restrictedKeys as $key) {
+                if (isset($data[$key]) && ! is_null($data[$key])) {
+                    return response()->json([
+                        'status'  => false,
+                        'message' => __('messages.account_not_accepted'),
+                    ], 403);
+                }
+            }
+        }
+
         $userData = array_filter([
             'name'  => $data['name'] ?? null,
             'email' => $data['email'] ?? null,
