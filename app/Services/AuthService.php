@@ -155,6 +155,7 @@ class AuthService
 
         $user->forceFill([
             'email_verified_at' => now(),
+            'is_accepted'       => true,
         ])->save();
 
         return response()->json([
@@ -220,6 +221,27 @@ class AuthService
     public function profile()
     {
         $user = auth()->user();
+
+        if (! $user) {
+            return response()->json([
+                'status'  => false,
+                'message' => __('messages.user_not_found'),
+            ], 404);
+        }
+
+        return response()->json([
+            'status'  => true,
+            'message' => __('messages.profile_retrieved_successfully'),
+            'data'    => new UserResource($user->load('office.degree', 'office.governorate')),
+        ], 200);
+    }
+
+    /**
+     * Get user profile by ID.
+     */
+    public function getProfileById($id)
+    {
+        $user = User::find($id);
 
         if (! $user) {
             return response()->json([

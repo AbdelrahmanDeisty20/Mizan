@@ -20,10 +20,11 @@ class UserResource extends JsonResource
             'email' => $this->email,
             'phone' => $this->phone,
             'role' => $this->role,
-            'avatar' => $this->avatar_url,
+            'avatar'               => $this->avatar_url,
             'syndicate_card_image' => $this->syndicate_card_image_url,
-            'office_details' => new OfficeResource($this->whenLoaded('office')),
-            'created_at' => $this->created_at?->toDateTimeString(),
+            'is_accepted'          => (bool) ($this->is_accepted ?? ! is_null($this->email_verified_at)),
+            'office_details'       => new OfficeResource($this->whenLoaded('office')),
+            'created_at'           => $this->created_at?->toDateTimeString(),
         ];
 
     }

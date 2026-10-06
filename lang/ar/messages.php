@@ -6,6 +6,7 @@ return [
     'user_not_found' => 'المستخدم غير موجود',
     'invalid_credentials' => 'بيانات الدخول غير صحيحة',
     'account_not_verified' => 'الحساب غير مفعّل، يرجى تفعيل البريد الإلكتروني أولاً',
+    'account_not_accepted' => 'حسابك غير مفعّل أو قيد المراجعة للقبول',
     'account_already_verified' => 'الحساب مفعّل بالفعل',
     'user_registered_successfully' => 'تم تسجيل الحساب بنجاح، يرجى التحقق من بريدك الإلكتروني',
     'user_logged_in_successfully' => 'تم تسجيل الدخول بنجاح',

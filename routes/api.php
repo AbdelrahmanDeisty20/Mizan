@@ -45,10 +45,15 @@ Route::middleware([SetLang::class])->group(function () {
     Route::get('courts', [CourtController::class, 'index']);
     Route::get('hearing-types', [HearingTypeController::class, 'index']);
 
-    // Protected Routes
+    // Protected Routes (auth:sanctum)
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('profile', [AuthController::class, 'profile']);
+        Route::get('profile/{id}', [AuthController::class, 'getProfileById']);
         Route::post('profile/update', [AuthController::class, 'updateProfile']);
+    });
+
+    // Protected Routes requiring acceptance (auth:sanctum + accepted)
+    Route::middleware(['auth:sanctum', 'accepted'])->group(function () {
         Route::post('clients/{client}', [ClientController::class, 'update']);
         Route::post('governorates/{governorate}', [GovernorateController::class, 'update']);
         Route::post('courts/{court}', [CourtController::class, 'update']);

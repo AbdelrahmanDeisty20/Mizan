@@ -23,6 +23,7 @@ class User extends Authenticatable
         'avatar',
         'syndicate_card_image',
         'email_verified_at',
+        'is_accepted',
     ];
 
     protected $appends = [
@@ -39,7 +40,8 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'is_accepted'       => 'boolean',
+            'password'          => 'hashed',
         ];
     }
 

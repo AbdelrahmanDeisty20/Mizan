@@ -45,6 +45,11 @@ class AuthController extends Controller
         return $this->authService->profile();
     }
 
+    public function getProfileById($id)
+    {
+        return $this->authService->getProfileById($id);
+    }
+
     public function updateProfile(UpdateProfileRequest $request)
     {
         return $this->authService->updateProfile($request->validated());

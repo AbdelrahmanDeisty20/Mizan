@@ -6,6 +6,7 @@ return [
     'user_not_found' => 'User not found',
     'invalid_credentials' => 'Invalid login credentials',
     'account_not_verified' => 'Account is not verified yet, please verify your email first',
+    'account_not_accepted' => 'Your account is not verified or pending acceptance',
     'account_already_verified' => 'Account is already verified',
     'user_registered_successfully' => 'Account registered successfully, please verify your email',
     'user_logged_in_successfully' => 'Logged in successfully',
