@@ -201,11 +201,12 @@ class ClientService
         $totalPaid      = max($receiptsPaid, $casesPaid);
         $totalRemaining = max(0, $totalAgreed - $totalPaid);
 
+        $perPage  = request()->get('per_page', 10);
         $receipts = FinancialReceipt::where('client_id', $client->id)
             ->with(['legalCase'])
             ->latest('date')
             ->latest('id')
-            ->get();
+            ->paginate($perPage);
 
         return response()->json([
             'status'  => true,
@@ -214,7 +215,13 @@ class ClientService
                 'total_agreed_fees'    => $totalAgreed,
                 'total_paid_fees'      => $totalPaid,
                 'total_remaining_fees' => $totalRemaining,
-                'receipts'             => FinancialReceiptResource::collection($receipts),
+                'receipts'             => FinancialReceiptResource::collection($receipts->items()),
+                'pagination'           => [
+                    'current_page' => $receipts->currentPage(),
+                    'per_page'     => $receipts->perPage(),
+                    'total'        => $receipts->total(),
+                    'last_page'    => $receipts->lastPage(),
+                ],
             ],
         ], 200);
     }
