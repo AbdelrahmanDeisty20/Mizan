@@ -47,6 +47,7 @@ class DocumentService
 
         $documents = Document::where('client_id', $client->id)
             ->orWhereIn('legal_case_id', $caseIds)
+            ->with(['case', 'client'])
             ->latest()
             ->paginate($perPage);
 
@@ -99,6 +100,7 @@ class DocumentService
         $perPage = request()->get('per_page', 10);
 
         $documents = Document::where('office_id', $user->office_id)
+            ->with(['case', 'client'])
             ->latest()
             ->paginate($perPage);
 
@@ -117,9 +119,15 @@ class DocumentService
         $fileSize = $this->formatFileSize($file->getSize());
         $title = $data['title'] ?? pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
 
+        $clientId = $data['client_id'] ?? null;
+        if (! $clientId && ! empty($data['legal_case_id'])) {
+            $legalCase = LegalCase::find($data['legal_case_id']);
+            $clientId  = $legalCase?->client_id;
+        }
+
         $document = Document::create([
             'office_id'     => $user->office_id,
-            'client_id'     => $data['client_id'] ?? null,
+            'client_id'     => $clientId,
             'legal_case_id' => $data['legal_case_id'] ?? null,
             'title'         => $title,
             'file_path'     => $filePath,

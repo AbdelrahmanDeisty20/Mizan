@@ -15,9 +15,39 @@ class StoreDocumentRequest extends FormRequest
     {
         return [
             'file'          => ['required', 'file', 'max:20480'],
-            'title'         => ['nullable', 'string', 'max:255'],
-            'legal_case_id' => ['nullable', 'exists:legal_cases,id'],
-            'client_id'     => ['nullable', 'exists:clients,id'],
+            'title'         => ['required', 'string', 'max:255'],
+            'legal_case_id' => ['required', 'exists:legal_cases,id'],
+        ];
+    }
+
+    /**
+     * Get custom attributes for validator errors.
+     *
+     * @return array<string, string>
+     */
+    public function attributes(): array
+    {
+        return [
+            'file'          => __('validation.attributes.file'),
+            'title'         => __('validation.attributes.title'),
+            'legal_case_id' => __('validation.attributes.legal_case_id'),
+        ];
+    }
+
+    /**
+     * Get custom messages for validator errors.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'file.required'          => __('validation.custom.file.required'),
+            'file.file'              => __('validation.custom.file.file'),
+            'file.max'               => __('validation.custom.file.max'),
+            'title.required'         => __('validation.custom.title.required'),
+            'legal_case_id.required' => __('validation.custom.legal_case_id.required'),
+            'legal_case_id.exists'   => __('validation.custom.legal_case_id.exists'),
         ];
     }
 }

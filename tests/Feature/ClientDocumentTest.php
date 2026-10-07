@@ -85,12 +85,22 @@ class ClientDocumentTest extends TestCase
             'access_code' => 'CLI-999888',
         ]);
 
+        $legalCase = LegalCase::create([
+            'office_id'   => $office->id,
+            'client_id'   => $client->id,
+            'client_role' => 'plaintiff',
+            'case_number' => '2020',
+            'year'        => 2026,
+            'case_type'   => 'civil',
+        ]);
+
         $file = UploadedFile::fake()->create('contract.pdf', 2048, 'application/pdf');
 
         $response = $this->actingAs($client, 'sanctum')
             ->postJson('/api/client-documents/upload', [
-                'file'  => $file,
-                'title' => 'عقد الاتفاق المبرم بين الطرفين',
+                'file'          => $file,
+                'title'         => 'عقد الاتفاق المبرم بين الطرفين',
+                'legal_case_id' => $legalCase->id,
             ]);
 
         $response->assertStatus(201)

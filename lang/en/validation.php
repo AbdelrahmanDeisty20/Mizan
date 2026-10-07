@@ -85,6 +85,8 @@ return [
         'preferred_date'       => 'preferred date',
         'preferred_time'       => 'preferred time',
         'subject'              => 'consultation subject',
+        'title'                => 'document title',
+        'file'                 => 'file',
     ],
 
 
@@ -244,6 +246,14 @@ return [
         ],
         'subject' => [
             'required' => 'Please write the consultation subject or questions.',
+        ],
+        'title' => [
+            'required' => 'The document title field is required.',
+        ],
+        'file' => [
+            'required' => 'The file field is required.',
+            'file'     => 'The uploaded file must be a valid file.',
+            'max'      => 'The file size must not exceed 20MB.',
         ],
     ],
 ];

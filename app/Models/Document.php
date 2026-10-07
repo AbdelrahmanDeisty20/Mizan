@@ -52,4 +52,9 @@ class Document extends Model
     {
         return $this->belongsTo(LegalCase::class);
     }
+
+    public function case(): BelongsTo
+    {
+        return $this->belongsTo(LegalCase::class, 'legal_case_id');
+    }
 }

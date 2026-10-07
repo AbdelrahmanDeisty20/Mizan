@@ -16,9 +16,8 @@ class DocumentResource extends JsonResource
     {
         return [
             'id'           => $this->id,
-            'office_id'    => $this->office_id,
-            'client_id'    => $this->client_id,
-            'legal_case_id'=> $this->legal_case_id,
+            'case'         => new LegalCaseResource($this->whenLoaded('case')),
+            'client'       => new ClientResource($this->whenLoaded('client')),
             'title'        => $this->title,
             'file_url'     => $this->file_url,
             'file_type'    => $this->file_type ?? 'PDF',
