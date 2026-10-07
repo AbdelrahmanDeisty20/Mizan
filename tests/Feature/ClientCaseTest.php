@@ -97,4 +97,47 @@ class ClientCaseTest extends TestCase
                 ],
             ]);
     }
+
+    public function test_client_can_fetch_fees_summary(): void
+    {
+        $office = Office::create([
+            'office_name'       => 'مكتب المحاماة',
+            'syndicate_card_id' => '1234567890',
+            'office_address'    => 'القاهرة',
+            'office_phone'      => '01000000000',
+        ]);
+
+        $client = Client::create([
+            'office_id'   => $office->id,
+            'name'        => 'علي حسن',
+            'phone'       => '01012345678',
+            'access_code' => 'CLI-100200',
+        ]);
+
+        LegalCase::create([
+            'office_id'      => $office->id,
+            'client_id'      => $client->id,
+            'client_role'    => 'plaintiff',
+            'case_number'    => '101',
+            'year'           => 2026,
+            'case_type'      => 'civil',
+            'total_fees'     => 100000,
+            'paid_fees'      => 65000,
+            'remaining_fees' => 35000,
+        ]);
+
+        $response = $this->actingAs($client, 'sanctum')
+            ->getJson('/api/client-fees-summary');
+
+        $response->assertStatus(200)
+            ->assertJson([
+                'status' => true,
+                'data'   => [
+                    'total_agreed_fees'    => 100000,
+                    'total_paid_fees'      => 65000,
+                    'total_remaining_fees' => 35000,
+                ],
+            ]);
+    }
 }
+

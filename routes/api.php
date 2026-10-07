@@ -51,9 +51,10 @@ Route::middleware([SetLang::class])->group(function () {
         Route::get('profile/{id}', [AuthController::class, 'getProfileById']);
         Route::post('profile/update', [AuthController::class, 'updateProfile'])->middleware('accepted');
 
-        // Client Cases Routes
+        // Client Cases & Fees Routes
         Route::get('client-cases', [LegalCaseController::class, 'clientCases']);
         Route::get('client-cases/{id}', [LegalCaseController::class, 'clientShow']);
+        Route::get('client-fees-summary', [ClientController::class, 'feesSummary']);
     });
 
     // Protected Routes requiring acceptance (auth:sanctum + accepted)

@@ -59,4 +59,13 @@ class ClientController extends Controller
     {
         return $this->clientService->destroy($client);
     }
+
+    /**
+     * Display fees summary for the authenticated client.
+     */
+    public function feesSummary()
+    {
+        return $this->clientService->feesSummary();
+    }
 }
+

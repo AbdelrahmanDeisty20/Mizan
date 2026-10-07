@@ -4,6 +4,8 @@ namespace App\Services;
 
 use App\Http\Resources\ClientResource;
 use App\Models\Client;
+use App\Models\FinancialReceipt;
+use App\Models\LegalCase;
 use App\Traits\ApiResponse;
 
 class ClientService
@@ -176,4 +178,37 @@ class ClientService
             'message' => __('messages.client_deleted_successfully'),
         ], 200);
     }
+
+    /**
+     * Get fees summary for the authenticated client.
+     */
+    public function feesSummary()
+    {
+        $client = auth()->user();
+
+        if (! $client || ! ($client instanceof Client)) {
+            return response()->json([
+                'status'  => false,
+                'message' => __('messages.unauthorized_role'),
+            ], 403);
+        }
+
+        $totalAgreed  = (float) LegalCase::where('client_id', $client->id)->sum('total_fees');
+        $receiptsPaid = (float) FinancialReceipt::where('client_id', $client->id)->sum('amount');
+        $casesPaid    = (float) LegalCase::where('client_id', $client->id)->sum('paid_fees');
+
+        $totalPaid      = max($receiptsPaid, $casesPaid);
+        $totalRemaining = max(0, $totalAgreed - $totalPaid);
+
+        return response()->json([
+            'status'  => true,
+            'message' => __('messages.success'),
+            'data'    => [
+                'total_agreed_fees'    => $totalAgreed,
+                'total_paid_fees'      => $totalPaid,
+                'total_remaining_fees' => $totalRemaining,
+            ],
+        ], 200);
+    }
 }
+
