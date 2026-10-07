@@ -25,6 +25,10 @@ class EnsureAccepted
             ], 401);
         }
 
+        if ($user instanceof \App\Models\Client) {
+            return $next($request);
+        }
+
         $isAccepted = (bool) ($user->is_accepted ?? ! is_null($user->email_verified_at));
 
         if ($isAccepted) {

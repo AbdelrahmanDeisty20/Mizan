@@ -70,10 +70,10 @@ class ConsultationService
     {
         $user = auth()->user();
 
-        // client_id is set automatically from the logged-in client if present
-        $clientId = $data['client_id'] ?? ($user?->client_id ?? ($user?->role === 'client' ? $user->id : null));
+        $isClientModel = $user instanceof \App\Models\Client;
+        $clientId = $data['client_id'] ?? ($isClientModel ? $user->id : ($user?->client_id ?? ($user?->role === 'client' ? $user->id : null)));
         $userId   = $data['user_id'] ?? ($user?->role === 'lawyer' ? $user->id : null);
-        $officeId = $data['office_id'] ?? ($user?->office_id ?? ($userId ? \App\Models\User::find($userId)?->office_id : null));
+        $officeId = $data['office_id'] ?? ($isClientModel ? $user->office_id : ($user?->office_id ?? ($userId ? \App\Models\User::find($userId)?->office_id : null)));
 
         $consultation = Consultation::create([
             'client_id'           => $clientId,

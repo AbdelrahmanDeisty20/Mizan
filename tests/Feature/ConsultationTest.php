@@ -174,4 +174,45 @@ class ConsultationTest extends TestCase
             'id' => $consultation->id,
         ]);
     }
+
+    public function test_client_can_create_consultation_without_acceptance_restriction(): void
+    {
+        $office = Office::create([
+            'office_name'       => 'مكتب القانون',
+            'syndicate_card_id' => '1234567890',
+            'office_address'    => 'القاهرة',
+            'office_phone'      => '01000000000',
+        ]);
+
+        $client = Client::create([
+            'office_id'   => $office->id,
+            'name'        => 'عميل تجربة',
+            'national_id' => '29901011234599',
+            'phone'       => '01055556666',
+            'access_code' => 'ACC123499',
+        ]);
+
+        $response = $this->actingAs($client, 'sanctum')
+            ->postJson('/api/consultations', [
+                'consultation_method' => 'بمقر المكتب',
+                'preferred_date'      => '2026-10-10',
+                'preferred_time'      => '04:00 PM',
+                'subject'             => 'استشارة خاصة بالعميل',
+            ]);
+
+        $response->assertStatus(201)
+            ->assertJson([
+                'status' => true,
+                'data'   => [
+                    'subject' => 'استشارة خاصة بالعميل',
+                ],
+            ]);
+
+        $this->assertDatabaseHas('consultations', [
+            'client_id' => $client->id,
+            'office_id' => $office->id,
+            'subject'   => 'استشارة خاصة بالعميل',
+        ]);
+    }
 }
+
