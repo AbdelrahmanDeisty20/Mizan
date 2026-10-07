@@ -325,6 +325,13 @@ class AuthService
             }
         }
 
+        if (isset($data['syndicate_card_id']) && ! is_null($data['syndicate_card_id'])) {
+            $currentSyndicateCardId = $user->office->syndicate_card_id ?? null;
+            if ((string) $data['syndicate_card_id'] !== (string) $currentSyndicateCardId) {
+                $userData['is_accepted'] = false;
+            }
+        }
+
         if (! empty($userData)) {
             $user->update($userData);
         }

@@ -160,4 +160,80 @@ class AcceptedMiddlewareTest extends TestCase
                 ],
             ]);
     }
+
+    public function test_changing_syndicate_card_id_resets_is_accepted_to_false(): void
+    {
+        $office = Office::create([
+            'office_name'       => 'مكتب الاختيار',
+            'syndicate_card_id' => '1234567890',
+            'office_address'    => 'القاهرة',
+            'office_phone'      => '01000000000',
+        ]);
+
+        $user = User::factory()->create([
+            'role'              => 'lawyer',
+            'office_id'         => $office->id,
+            'email_verified_at' => now(),
+            'is_accepted'       => true,
+        ]);
+
+        $response = $this->actingAs($user, 'sanctum')
+            ->postJson('/api/profile/update', [
+                'syndicate_card_id' => '9999999999',
+            ]);
+
+        $response->assertStatus(200)
+            ->assertJson([
+                'status' => true,
+                'data'   => [
+                    'is_accepted' => false,
+                ],
+            ]);
+
+        $this->assertDatabaseHas('users', [
+            'id'          => $user->id,
+            'is_accepted' => false,
+        ]);
+
+        $this->assertDatabaseHas('offices', [
+            'id'                => $office->id,
+            'syndicate_card_id' => '9999999999',
+        ]);
+    }
+
+    public function test_keeping_same_syndicate_card_id_preserves_is_accepted(): void
+    {
+        $office = Office::create([
+            'office_name'       => 'مكتب الاختيار',
+            'syndicate_card_id' => '1234567890',
+            'office_address'    => 'القاهرة',
+            'office_phone'      => '01000000000',
+        ]);
+
+        $user = User::factory()->create([
+            'role'              => 'lawyer',
+            'office_id'         => $office->id,
+            'email_verified_at' => now(),
+            'is_accepted'       => true,
+        ]);
+
+        $response = $this->actingAs($user, 'sanctum')
+            ->postJson('/api/profile/update', [
+                'syndicate_card_id' => '1234567890',
+            ]);
+
+        $response->assertStatus(200)
+            ->assertJson([
+                'status' => true,
+                'data'   => [
+                    'is_accepted' => true,
+                ],
+            ]);
+
+        $this->assertDatabaseHas('users', [
+            'id'          => $user->id,
+            'is_accepted' => true,
+        ]);
+    }
 }
+
