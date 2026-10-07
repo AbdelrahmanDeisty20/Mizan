@@ -6,6 +6,7 @@ use App\Http\Controllers\API\AUTH\ForgetPasswordController;
 use App\Http\Controllers\API\ClientController;
 use App\Http\Controllers\API\CourtController;
 use App\Http\Controllers\API\DegreeController;
+use App\Http\Controllers\API\DocumentController;
 use App\Http\Controllers\API\FinancialReceiptController;
 use App\Http\Controllers\API\GovernorateController;
 use App\Http\Controllers\API\HearingController;
@@ -51,14 +52,18 @@ Route::middleware([SetLang::class])->group(function () {
         Route::get('profile/{id}', [AuthController::class, 'getProfileById']);
         Route::post('profile/update', [AuthController::class, 'updateProfile'])->middleware('accepted');
 
-        // Client Cases & Fees Routes
+        // Client Cases, Fees & Documents Routes
         Route::get('client-cases', [LegalCaseController::class, 'clientCases']);
         Route::get('client-cases/{id}', [LegalCaseController::class, 'clientShow']);
         Route::get('client-fees-summary', [ClientController::class, 'feesSummary']);
+        Route::get('client-documents', [DocumentController::class, 'clientIndex']);
+        Route::post('client-documents/upload', [DocumentController::class, 'clientUpload']);
     });
 
     // Protected Routes requiring acceptance (auth:sanctum + accepted)
     Route::middleware(['auth:sanctum', 'accepted'])->group(function () {
+        Route::post('documents/{document}', [DocumentController::class, 'update']);
+        Route::apiResource('documents', DocumentController::class);
         Route::post('clients/{client}', [ClientController::class, 'update']);
         Route::post('governorates/{governorate}', [GovernorateController::class, 'update']);
         Route::post('courts/{court}', [CourtController::class, 'update']);

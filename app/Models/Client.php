@@ -78,4 +78,10 @@ class Client extends Authenticatable
     {
         return $this->hasMany(Consultation::class);
     }
+
+    public function documents(): HasMany
+    {
+        return $this->hasMany(Document::class);
+    }
 }
+
