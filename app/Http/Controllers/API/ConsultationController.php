@@ -61,4 +61,13 @@ class ConsultationController extends Controller
     {
         return $this->consultationService->destroy($consultation);
     }
+
+    /**
+     * Display listing of consultations received by lawyer's office.
+     */
+    public function lawyerConsultations(): JsonResponse
+    {
+        return $this->consultationService->lawyerConsultations();
+    }
 }
+

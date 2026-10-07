@@ -214,5 +214,59 @@ class ConsultationTest extends TestCase
             'subject'   => 'استشارة خاصة بالعميل',
         ]);
     }
+
+    public function test_lawyer_can_fetch_consultations_received_from_clients(): void
+    {
+        $office = Office::create([
+            'office_name'       => 'مكتب القانون',
+            'syndicate_card_id' => '1234567890',
+            'office_address'    => 'القاهرة',
+            'office_phone'      => '01000000000',
+        ]);
+
+        $lawyer = User::factory()->create([
+            'role'              => 'lawyer',
+            'office_id'         => $office->id,
+            'email_verified_at' => now(),
+            'is_accepted'       => true,
+        ]);
+
+        $client = Client::create([
+            'office_id'   => $office->id,
+            'name'        => 'عميل تجربة 2',
+            'national_id' => '29901011234588',
+            'phone'       => '01055557777',
+            'access_code' => 'ACC123488',
+        ]);
+
+        $consultation = Consultation::create([
+            'client_id'           => $client->id,
+            'office_id'           => $office->id,
+            'consultation_method' => 'مكالمة هاتفية',
+            'preferred_date'      => '2026-10-12',
+            'preferred_time'      => '05:00 PM',
+            'subject'             => 'استشارة قانونية من العميل',
+            'status'              => 'pending',
+        ]);
+
+        $response = $this->actingAs($lawyer, 'sanctum')
+            ->getJson('/api/lawyer-consultations');
+
+        $response->assertStatus(200)
+            ->assertJson([
+                'status' => true,
+                'data'   => [
+                    [
+                        'id'      => $consultation->id,
+                        'subject' => 'استشارة قانونية من العميل',
+                        'client'  => [
+                            'id'   => $client->id,
+                            'name' => 'عميل تجربة 2',
+                        ],
+                    ],
+                ],
+            ]);
+    }
 }
+
 

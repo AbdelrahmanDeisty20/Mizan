@@ -144,4 +144,48 @@ class ConsultationService
             'message' => __('messages.consultation_deleted_successfully'),
         ], 200);
     }
+
+    /**
+     * List all consultations received by the lawyer's office from clients.
+     */
+    public function lawyerConsultations(): JsonResponse
+    {
+        $user = auth()->user();
+
+        if (! $user || ! $user->office_id) {
+            return response()->json([
+                'status'  => false,
+                'message' => __('messages.unauthorized_role'),
+            ], 403);
+        }
+
+        $perPage = request()->get('per_page', 10);
+        $query   = Consultation::where('office_id', $user->office_id)
+            ->with(['client', 'office', 'user']);
+
+        if (request()->filled('client_id')) {
+            $query->where('client_id', request()->get('client_id'));
+        }
+
+        if (request()->filled('status')) {
+            $query->where('status', request()->get('status'));
+        }
+
+        if (request()->filled('consultation_method')) {
+            $query->where('consultation_method', request()->get('consultation_method'));
+        }
+
+        if (request()->filled('search')) {
+            $search = request()->get('search');
+            $query->where(function ($q) use ($search) {
+                $q->where('subject', 'like', "%{$search}%")
+                  ->orWhere('consultation_number', 'like', "%{$search}%");
+            });
+        }
+
+        $consultations = $query->latest('id')->paginate($perPage);
+
+        return $this->paginated(ConsultationResource::class, $consultations, __('messages.success'));
+    }
 }
+

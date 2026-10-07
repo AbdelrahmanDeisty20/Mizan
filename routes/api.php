@@ -87,7 +87,8 @@ Route::middleware([SetLang::class])->group(function () {
         Route::apiResource('courts', CourtController::class)->except(['index']);
         Route::apiResource('hearing-types', HearingTypeController::class)->except(['index']);
 
-        // Client Consultation Routes
+        // Consultation Routes
+        Route::get('lawyer-consultations', [ConsultationController::class, 'lawyerConsultations']);
         Route::post('consultations/{consultation}/reply', [ConsultationController::class, 'reply']);
         Route::post('consultations/{consultation}', [ConsultationController::class, 'update']);
         Route::apiResource('consultations', ConsultationController::class);
