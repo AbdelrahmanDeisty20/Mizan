@@ -89,6 +89,8 @@ Route::middleware([SetLang::class])->group(function () {
 
         // Consultation Routes
         Route::get('lawyer-consultations', [ConsultationController::class, 'lawyerConsultations']);
+        Route::post('consultations/{consultation}/accept', [ConsultationController::class, 'accept']);
+        Route::post('consultations/{consultation}/reject', [ConsultationController::class, 'reject']);
         Route::post('consultations/{consultation}/reply', [ConsultationController::class, 'reply']);
         Route::post('consultations/{consultation}', [ConsultationController::class, 'update']);
         Route::apiResource('consultations', ConsultationController::class);

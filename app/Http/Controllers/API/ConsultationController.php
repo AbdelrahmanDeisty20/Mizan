@@ -69,5 +69,22 @@ class ConsultationController extends Controller
     {
         return $this->consultationService->lawyerConsultations();
     }
+
+    /**
+     * Lawyer accepts consultation.
+     */
+    public function accept(\Illuminate\Http\Request $request, Consultation $consultation): JsonResponse
+    {
+        return $this->consultationService->accept($consultation, $request->all());
+    }
+
+    /**
+     * Lawyer rejects consultation.
+     */
+    public function reject(\Illuminate\Http\Request $request, Consultation $consultation): JsonResponse
+    {
+        return $this->consultationService->reject($consultation, $request->all());
+    }
 }
+
 

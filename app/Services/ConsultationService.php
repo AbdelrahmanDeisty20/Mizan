@@ -187,5 +187,47 @@ class ConsultationService
 
         return $this->paginated(ConsultationResource::class, $consultations, __('messages.success'));
     }
+
+    /**
+     * Lawyer accepts a client consultation.
+     */
+    public function accept(Consultation $consultation, array $data = []): JsonResponse
+    {
+        $user = auth()->user();
+
+        $consultation->update([
+            'user_id' => $user?->id,
+            'status'  => 'confirmed',
+            'reply'   => $data['reply'] ?? $consultation->reply,
+            'fee'     => $data['fee'] ?? $consultation->fee,
+        ]);
+
+        return response()->json([
+            'status'  => true,
+            'message' => __('messages.consultation_accepted_successfully'),
+            'data'    => new ConsultationResource($consultation->fresh()->load(['client', 'office', 'user'])),
+        ], 200);
+    }
+
+    /**
+     * Lawyer rejects a client consultation.
+     */
+    public function reject(Consultation $consultation, array $data = []): JsonResponse
+    {
+        $user = auth()->user();
+
+        $consultation->update([
+            'user_id' => $user?->id,
+            'status'  => 'cancelled',
+            'reply'   => $data['reply'] ?? $consultation->reply,
+        ]);
+
+        return response()->json([
+            'status'  => true,
+            'message' => __('messages.consultation_rejected_successfully'),
+            'data'    => new ConsultationResource($consultation->fresh()->load(['client', 'office', 'user'])),
+        ], 200);
+    }
 }
+
 

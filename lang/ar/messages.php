@@ -69,6 +69,8 @@ return [
     'consultation_created_successfully'       => 'تم إنشاء طلب الاستشارة القانونية بنجاح',
     'consultation_updated_successfully'       => 'تم تحديث بيانات الاستشارة بنجاح',
     'consultation_replied_successfully'       => 'تم الإجابة والرد على الاستشارة بنجاح',
+    'consultation_accepted_successfully'      => 'تم قبول طلب الاستشارة بنجاح',
+    'consultation_rejected_successfully'      => 'تم رفض طلب الاستشارة بنجاح',
     'consultation_deleted_successfully'       => 'تم حذف الاستشارة بنجاح',
 ];
 

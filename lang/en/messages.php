@@ -69,6 +69,8 @@ return [
     'consultation_created_successfully'       => 'Legal consultation requested successfully',
     'consultation_updated_successfully'       => 'Consultation updated successfully',
     'consultation_replied_successfully'       => 'Consultation replied successfully',
+    'consultation_accepted_successfully'      => 'Consultation accepted successfully',
+    'consultation_rejected_successfully'      => 'Consultation rejected successfully',
     'consultation_deleted_successfully'       => 'Consultation deleted successfully',
 ];
 

@@ -267,6 +267,92 @@ class ConsultationTest extends TestCase
                 ],
             ]);
     }
+
+    public function test_lawyer_can_accept_and_reject_consultation(): void
+    {
+        $office = Office::create([
+            'office_name'       => 'مكتب القانون',
+            'syndicate_card_id' => '1234567890',
+            'office_address'    => 'القاهرة',
+            'office_phone'      => '01000000000',
+        ]);
+
+        $lawyer = User::factory()->create([
+            'role'              => 'lawyer',
+            'office_id'         => $office->id,
+            'email_verified_at' => now(),
+            'is_accepted'       => true,
+        ]);
+
+        $client = Client::create([
+            'office_id'   => $office->id,
+            'name'        => 'عميل تجربة 3',
+            'national_id' => '29901011234577',
+            'phone'       => '01055558888',
+            'access_code' => 'ACC123477',
+        ]);
+
+        $consultation1 = Consultation::create([
+            'client_id'           => $client->id,
+            'office_id'           => $office->id,
+            'consultation_method' => 'بمقر المكتب',
+            'preferred_date'      => '2026-10-15',
+            'preferred_time'      => '03:00 PM',
+            'subject'             => 'طلب قبول استشارة',
+            'status'              => 'pending',
+        ]);
+
+        $consultation2 = Consultation::create([
+            'client_id'           => $client->id,
+            'office_id'           => $office->id,
+            'consultation_method' => 'اجتماع أونلاين',
+            'preferred_date'      => '2026-10-16',
+            'preferred_time'      => '04:00 PM',
+            'subject'             => 'طلب رفض استشارة',
+            'status'              => 'pending',
+        ]);
+
+        // Accept
+        $acceptRes = $this->actingAs($lawyer, 'sanctum')
+            ->postJson("/api/consultations/{$consultation1->id}/accept", [
+                'reply' => 'تم قبول الموعد وتأكيد الاستشارة',
+            ]);
+
+        $acceptRes->assertStatus(200)
+            ->assertJson([
+                'status' => true,
+                'data'   => [
+                    'status' => 'confirmed',
+                    'reply'  => 'تم قبول الموعد وتأكيد الاستشارة',
+                ],
+            ]);
+
+        $this->assertDatabaseHas('consultations', [
+            'id'     => $consultation1->id,
+            'status' => 'confirmed',
+        ]);
+
+        // Reject
+        $rejectRes = $this->actingAs($lawyer, 'sanctum')
+            ->postJson("/api/consultations/{$consultation2->id}/reject", [
+                'reply' => 'نعتذر عن عدم إمكانية استقبال الاستشارة',
+            ]);
+
+        $rejectRes->assertStatus(200)
+            ->assertJson([
+                'status' => true,
+                'data'   => [
+                    'status' => 'cancelled',
+                    'reply'  => 'نعتذر عن عدم إمكانية استقبال الاستشارة',
+                ],
+            ]);
+
+        $this->assertDatabaseHas('consultations', [
+            'id'     => $consultation2->id,
+            'status' => 'cancelled',
+        ]);
+    }
 }
+
 
 
