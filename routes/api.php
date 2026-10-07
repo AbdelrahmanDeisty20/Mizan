@@ -56,6 +56,7 @@ Route::middleware([SetLang::class])->group(function () {
         Route::get('client-cases', [LegalCaseController::class, 'clientCases']);
         Route::get('client-cases/{id}', [LegalCaseController::class, 'clientShow']);
         Route::get('client-fees-summary', [ClientController::class, 'feesSummary']);
+        Route::get('client-financial-receipts', [ClientController::class, 'receipts']);
         Route::get('client-documents', [DocumentController::class, 'clientIndex']);
         Route::post('client-documents/upload', [DocumentController::class, 'clientUpload']);
     });

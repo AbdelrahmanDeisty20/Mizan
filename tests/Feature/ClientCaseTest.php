@@ -114,7 +114,7 @@ class ClientCaseTest extends TestCase
             'access_code' => 'CLI-100200',
         ]);
 
-        LegalCase::create([
+        $legalCase = LegalCase::create([
             'office_id'      => $office->id,
             'client_id'      => $client->id,
             'client_role'    => 'plaintiff',
@@ -124,6 +124,16 @@ class ClientCaseTest extends TestCase
             'total_fees'     => 100000,
             'paid_fees'      => 65000,
             'remaining_fees' => 35000,
+        ]);
+
+        $receipt = \App\Models\FinancialReceipt::create([
+            'office_id'      => $office->id,
+            'client_id'      => $client->id,
+            'legal_case_id'  => $legalCase->id,
+            'receipt_number' => 'RCP-001',
+            'amount'         => 65000,
+            'payment_method' => 'نقدي',
+            'date'           => '2026-10-07',
         ]);
 
         $response = $this->actingAs($client, 'sanctum')
@@ -136,8 +146,31 @@ class ClientCaseTest extends TestCase
                     'total_agreed_fees'    => 100000,
                     'total_paid_fees'      => 65000,
                     'total_remaining_fees' => 35000,
+                    'receipts'             => [
+                        [
+                            'id'             => $receipt->id,
+                            'receipt_number' => 'RCP-001',
+                            'amount'         => 65000,
+                        ],
+                    ],
+                ],
+            ]);
+
+        $receiptsResponse = $this->actingAs($client, 'sanctum')
+            ->getJson('/api/client-financial-receipts');
+
+        $receiptsResponse->assertStatus(200)
+            ->assertJson([
+                'status' => true,
+                'data'   => [
+                    [
+                        'id'             => $receipt->id,
+                        'receipt_number' => 'RCP-001',
+                        'amount'         => 65000,
+                    ],
                 ],
             ]);
     }
 }
+
 

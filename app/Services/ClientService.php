@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Http\Resources\ClientResource;
+use App\Http\Resources\FinancialReceiptResource;
 use App\Models\Client;
 use App\Models\FinancialReceipt;
 use App\Models\LegalCase;
@@ -200,6 +201,12 @@ class ClientService
         $totalPaid      = max($receiptsPaid, $casesPaid);
         $totalRemaining = max(0, $totalAgreed - $totalPaid);
 
+        $receipts = FinancialReceipt::where('client_id', $client->id)
+            ->with(['legalCase'])
+            ->latest('date')
+            ->latest('id')
+            ->get();
+
         return response()->json([
             'status'  => true,
             'message' => __('messages.success'),
@@ -207,8 +214,35 @@ class ClientService
                 'total_agreed_fees'    => $totalAgreed,
                 'total_paid_fees'      => $totalPaid,
                 'total_remaining_fees' => $totalRemaining,
+                'receipts'             => FinancialReceiptResource::collection($receipts),
             ],
         ], 200);
     }
+
+    /**
+     * Get financial receipts for the authenticated client.
+     */
+    public function receipts()
+    {
+        $client = auth()->user();
+
+        if (! $client || ! ($client instanceof Client)) {
+            return response()->json([
+                'status'  => false,
+                'message' => __('messages.unauthorized_role'),
+            ], 403);
+        }
+
+        $perPage = request()->get('per_page', 10);
+
+        $receipts = FinancialReceipt::where('client_id', $client->id)
+            ->with(['legalCase'])
+            ->latest('date')
+            ->latest('id')
+            ->paginate($perPage);
+
+        return $this->paginated(FinancialReceiptResource::class, $receipts, __('messages.success'));
+    }
 }
+
 

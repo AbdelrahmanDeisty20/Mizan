@@ -67,5 +67,14 @@ class ClientController extends Controller
     {
         return $this->clientService->feesSummary();
     }
+
+    /**
+     * Display financial receipts for the authenticated client.
+     */
+    public function receipts()
+    {
+        return $this->clientService->receipts();
+    }
 }
+
 
