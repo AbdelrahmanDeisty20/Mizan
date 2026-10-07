@@ -17,6 +17,7 @@ class ConsultationResource extends JsonResource
             'preferred_time'      => $this->preferred_time,
             'subject'             => $this->subject,
             'status'              => $this->status,
+            'client'              => new ClientResource($this->whenLoaded('client')),
             'office'              => new OfficeResource($this->whenLoaded('office')),
             'user'                => new UserResource($this->whenLoaded('user')),
             'created_at'          => $this->created_at?->toDateTimeString(),
